@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Collision Database";
+}
+
+<table class="table table-sm table-striped table-bordered">
+
+    <thead>
+        <tr>
+            <th>Crash Date</th>
+            <th>Road Name</th>
+            <th>City</th>
+            <th>County</th>
+            <th>Severity</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var c in Model.Collisions)
+        {
+            <tr>
+                <td>@c.CRASH_DATETIME</td>
+                <td>@c.MAIN_ROAD_NAME</td>
+                <td>@c.City.CityName</td>
+                <td>@c.County.CountyName</td>
+                <td>@c.CRASH_SEVERITY_ID</td>
+                <td><a asp-controller="Account" asp-action="EditCollision" asp-route-collisionid="@c.CRASH_ID" class="btn-sm btn-secondary">Edit</a></td>
+                <td><a asp-controller="Account" asp-action="DeleteCollision" asp-route-collisionid="@c.CRASH_ID" class="btn-sm btn-danger">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

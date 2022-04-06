@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Collision Summary";
+}
+
+@model CollisionsViewModel
+
+<table class="table table-sm table-striped table-bordered">
+
+    <thead>
+        <tr>
+            <th>Crash Date</th>
+            <th>Road Name</th>
+            <th>City</th>
+            <th>County</th>
+            <th>Severity</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var c in Model.Collisions)
+        {
+            <tr>
+                <td>@c.CRASH_DATETIME</td>
+                <td>@c.MAIN_ROAD_NAME</td>
+                <td>@c.City.CityName</td>
+                <td>@c.County.CountyName</td>
+                <td>@c.CRASH_SEVERITY_ID</td>
+                <!--<a href="">View Details</a>-->
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+
+<div page-model="Model.PageInfo" page-action="Summary" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-right m-1"></div>
