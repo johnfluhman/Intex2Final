@@ -30,27 +30,64 @@ namespace CollisionsDB.Infrastructure
         public string PageClassNormal { get; set; }
         public string PageClassSelected { get; set; }
 
+        private void RenderPageLink(TagHelperContext thc, TagHelperOutput tho, TagBuilder final, int page)
+        {
+            IUrlHelper uh = uhf.GetUrlHelper(vc);
+
+            TagBuilder tb = new TagBuilder("a");
+
+            tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = page });
+            if (PageClassesEnabled)
+            {
+                tb.AddCssClass(PageClass);
+                tb.AddCssClass(page == PageModel.CurrentPage
+                    ? PageClassSelected : PageClassNormal);
+            }
+            tb.InnerHtml.Append(page.ToString());
+
+            final.InnerHtml.AppendHtml(tb);
+        }
+
+        private void RenderDotDotDot(TagHelperContext thc, TagHelperOutput tho, TagBuilder final)
+        {
+            IUrlHelper uh = uhf.GetUrlHelper(vc);
+
+            TagBuilder tb = new TagBuilder("a");
+
+            if (PageClassesEnabled)
+            {
+                tb.AddCssClass(PageClass);
+                tb.AddCssClass(PageClassNormal);
+            }
+            tb.InnerHtml.Append("...");
+
+            final.InnerHtml.AppendHtml(tb);
+        }
+
         public override void Process(TagHelperContext thc, TagHelperOutput tho)
         {
+
             IUrlHelper uh = uhf.GetUrlHelper(vc);
 
             TagBuilder final = new TagBuilder("div");
 
-            for (int i = 1; i <= PageModel.TotalPages; i++)
+            RenderPageLink(thc, tho, final, 1);
+
+            const int NUM_PAGES = 3;
+
+            // render the dot dot dot if necessary
+            if (PageModel.CurrentPage - NUM_PAGES - 1 > 1) RenderDotDotDot(thc, tho, final);
+
+            for(int i = PageModel.CurrentPage - NUM_PAGES; i <= PageModel.CurrentPage + NUM_PAGES; i++)
             {
-                TagBuilder tb = new TagBuilder("a");
-
-                tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
-                if (PageClassesEnabled)
-                {
-                    tb.AddCssClass(PageClass);
-                    tb.AddCssClass(i == PageModel.CurrentPage
-                        ? PageClassSelected : PageClassNormal);
-                }
-                tb.InnerHtml.Append(i.ToString());
-
-                final.InnerHtml.AppendHtml(tb);
+                // don't double-render page 1 or last page
+                if (i <= 1 || i >= PageModel.TotalPages) continue;
+                RenderPageLink(thc, tho, final, i);
             }
+
+            if (PageModel.CurrentPage + NUM_PAGES < PageModel.TotalPages) RenderDotDotDot(thc, tho, final);
+
+            RenderPageLink(thc, tho, final, PageModel.TotalPages);
 
             tho.Content.AppendHtml(final.InnerHtml);
         }
