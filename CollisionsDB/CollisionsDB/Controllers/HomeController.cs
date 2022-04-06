@@ -35,14 +35,14 @@ namespace CollisionsDB.Controllers
         }
 
         [HttpGet]
-        public IActionResult Summary(string county, int pageNum = 1)
+        public IActionResult Summary(string county, int severity, int pageNum = 1)
         {
             int pageSize = 100;
 
             var x = new CollisionsViewModel
             {
                 Collisions = repo.Collisions
-                    .Where(c => c.County.CountyName == county || county == null)
+                    .Where(c => c.County.CountyName == county || county == null)                    
                     .Include(c => c.City)
                     .Include(c => c.County)
                     .OrderBy(c => c.CrashId)
