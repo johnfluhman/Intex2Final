@@ -3,3 +3,72 @@
 *@
 @{
 }
+
+@model CrashDataInput
+
+<h1>@(ViewBag.Result != null ? "Predicted Crash Severity: " + ViewBag.Result.PredictedValue : "")</h1>
+
+<form method="post">
+    <div class="text-danger" asp-validation-summary="All"></div>
+
+    <div class="form-group">
+        <label asp-for="Milepoint">Milepoint</label>
+        <input asp-for="Milepoint" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LatUtmY">Latitude</label>
+        <input asp-for="LatUtmY" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LongUtmX">
+            Longitude
+            <input asp-for="LongUtmX" class="form-control" />
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PedestrianInvolved">
+            Pedestrian Involved?
+            <input type="checkbox" asp-for="PedestrianInvolved" class="form-control" />
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BicyclistInvolved">
+            Bicyclist Involved?
+            <input type="checkbox" asp-for="BicyclistInvolved" class="form-control" />
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MotorcycleInvolved">
+            Motorcycle Involved?
+            <input type="checkbox" asp-for="MotorcycleInvolved" class="form-control" />
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="OverturnRollover">
+            Vehicle Overturned?
+            <input type="checkbox" asp-for="OverturnRollover" class="form-control" />
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TeenageDriverInvolved">
+            Teenage Driver Involved?
+            <input type="checkbox" asp-for="TeenageDriverInvolved" class="form-control" />
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NightDarkCondition">
+            Nightime?
+            <input type="checkbox" asp-for="NightDarkCondition" class="form-control" />
+        </label>
+    </div>
+
+    <button type="submit">Predict</button>
+</form>

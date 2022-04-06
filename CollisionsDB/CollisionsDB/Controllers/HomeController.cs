@@ -8,16 +8,20 @@ using Microsoft.Extensions.Logging;
 using CollisionsDB.Models;
 using CollisionsDB.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.ML.OnnxRuntime;
+using Microsoft.ML.OnnxRuntime.Tensors;
 
 namespace CollisionsDB.Controllers
 {
     public class HomeController : Controller
     {
         private ICollisionRepository repo { get; set; }
+        private InferenceSession session { get; set; }
 
-        public HomeController (ICollisionRepository temp)
+        public HomeController (ICollisionRepository temp, InferenceSession tempSession)
         {
             repo = temp;
+            session = tempSession;
         }
 
         public IActionResult Index()
@@ -59,6 +63,24 @@ namespace CollisionsDB.Controllers
         }
 
         [HttpGet]
+        public IActionResult Calculator()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Calculator(CrashDataInput data)
+        {
+            var result = session.Run(new List<NamedOnnxValue>
+            {
+                NamedOnnxValue.CreateFromTensor("float_input", data.AsTensor())
+            });
+            Tensor<float> score = result.First().AsTensor<float>();
+            var prediction = new SeverityPrediction { PredictedValue = score.First() };
+            result.Dispose();
+            ViewBag.Result = prediction;
+            return View();
+
         public IActionResult Details(int collisionid)
         {
             var crash = repo.Collisions
