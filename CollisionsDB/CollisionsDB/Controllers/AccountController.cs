@@ -53,7 +53,7 @@ namespace CollisionsDB.Controllers
         [HttpGet]
         public IActionResult EditCollision(int collisionid)
         {
-            var edit = repo.Collisions.Single(x => x.CRASH_ID == collisionid);
+            var edit = repo.Collisions.Single(x => x.CrashId == collisionid);
             return View("Form", edit);
         }
 
@@ -67,7 +67,7 @@ namespace CollisionsDB.Controllers
         [HttpGet]
         public IActionResult DeleteCollision(int collisionid)
         {
-            var edit = repo.Collisions.Single(x => x.CRASH_ID == collisionid);
+            var edit = repo.Collisions.Single(x => x.CrashId == collisionid);
             return View(edit);
         }
 

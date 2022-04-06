@@ -38,7 +38,7 @@ namespace CollisionsDB.Controllers
             {
                 Collisions = repo.Collisions
                     //.Where(c => c.Category == category || category == null)
-                    .OrderBy(c => c.CRASH_SEVERITY_ID)
+                    .OrderBy(c => c.CrashSeverityId)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
 

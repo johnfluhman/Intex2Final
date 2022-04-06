@@ -21,11 +21,11 @@
         @foreach (var c in Model.Collisions)
         {
             <tr>
-                <td>@c.CRASH_DATETIME</td>
-                <td>@c.MAIN_ROAD_NAME</td>
+                <td>@c.CrashDatetime</td>
+                <td>@c.MainRoadName</td>
                 <td>@c.City.CityName</td>
                 <td>@c.County.CountyName</td>
-                <td>@c.CRASH_SEVERITY_ID</td>
+                <td>@c.CrashSeverityId</td>
                 <!--<a href="">View Details</a>-->
             </tr>
         }
