@@ -35,10 +35,32 @@ namespace CollisionsDB
                 options.UseMySql(Configuration["ConnectionStrings:CollisionConnection"]);
             });
 
+            services.AddDbContext<AppIdentityDBContext>(options =>
+            {
+                options.UseMySql(Configuration["ConnectionStrings:CollisionConnection"]);
+            });
+
+            services.AddDefaultIdentity<IdentityUser>(options =>
+                options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<AppIdentityDBContext>();
+
+            // custom password requirements
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 10;
+                options.Password.RequiredUniqueChars = 1;
+            });
+
             services.AddScoped<ICollisionRepository, EFCollisionRepository>();
 
             services.AddDistributedMemoryCache();
             services.AddSession();
+
+            services.AddRazorPages();
 
             services.AddSingleton<InferenceSession>(
                 new InferenceSession("Models/trained_model_hgboost.onnx")
@@ -74,6 +96,7 @@ namespace CollisionsDB
                     defaults: new { Controller = "Home", action = "Summary", pageNum = 1 });
 
                 endpoints.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
             });
         }
     }
