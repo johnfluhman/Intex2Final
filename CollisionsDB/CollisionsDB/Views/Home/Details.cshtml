@@ -17,82 +17,82 @@
         <tr><th>Collision Road Name:</th><td>@Model.MainRoadName</td></tr>
         <tr><th>Collision City:</th><td>@Model.City.CityName</td></tr>
         <tr><th>Collision County:</th><td>@Model.County.CountyName</td></tr>
-        <tr><th>Collision Severity:</th><td>@Model.CrashSeverityId</td></tr>
-        @*@if (Model.WORK_ZONE_RELATED == "TRUE")
+        @if (Model.CrashSeverityId == 5) {<tr><th>Crash Severity:</th><td>Fatal</td></tr>}
+        @if (Model.CrashSeverityId == 4) {<tr><th>Crash Severity:</th><td>Suspected Major Injury</td></tr>}
+        @if (Model.CrashSeverityId == 3) {<tr><th>Crash Severity:</th><td>Suspect Minor Injury</td></tr>}
+        @if (Model.CrashSeverityId == 2) {<tr><th>Crash Severity:</th><td>Possible Injury</td></tr>}
+        @if (Model.CrashSeverityId == 1) {<tr><th>Crash Severity:</th><td>No Injury</td></tr>}
+        @if (Model.WorkZoneRelated == 1)
         {
-            <tr><th>Work Zone Related:</th><td>@Model.WORK_ZONE_RELATED</td></tr>
+            <tr><th>Work Zone Related:</th><td>True</td></tr>
         }
-        @if (Model.PEDESTRIAN_INVOLVED == "TRUE")
+        @if (Model.PedestrianInvolved == 1)
         {
-            <tr><th>Pedestrian Involved:</th><td>@Model.PEDESTRIAN_INVOLVED</td></tr>
+            <tr><th>Pedestrian Involved:</th><td>True</td></tr>
         }
-        @if (Model.BICYCLIST_INVOLVED == "TRUE")
+        @if (Model.BicyclistInvolved == 1)
         {
-            <tr><th>Bicyclist Involved:</th><td>@Model.BICYCLIST_INVOLVED</td></tr>
+            <tr><th>Bicyclist Involved:</th><td>True</td></tr>
         }
-        @if (Model.MOTORCYCLE_INVOLVED == "TRUE")
+        @if (Model.MotorcycleInvolved == 1)
         {
-            <tr><th>Motorcycle Involved:</th><td>@Model.MOTORCYCLE_INVOLVED</td></tr>
+            <tr><th>Motorcycle Involved:</th><td>True</td></tr>
         }
-        @if (Model.IMPROPER_RESTRAINT == "TRUE")
+        @if (Model.ImproperRestraint == 1)
         {
-            <tr><th>Improper Restraint:</th><td>@Model.IMPROPER_RESTRAINT</td></tr>
+            <tr><th>Improper Restraint:</th><td>True</td></tr>
         }
-        @if (Model.UNRESTRAINED == "TRUE")
+        @if (Model.Unrestrained == 1)
         {
-            <tr><th>Unrestrained:</th><td>@Model.UNRESTRAINED</td></tr>
+            <tr><th>Unrestrained:</th><td>True</td></tr>
         }
-        @if (Model.DUI == "TRUE")
+        @if (Model.Dui == 1)
         {
-            <tr><th>DUI:</th><td>@Model.DUI</td></tr>
+            <tr><th>DUI:</th><td>True</td></tr>
         }
-        @if (Model.INTERSECTION_RELATED == "TRUE")
+        @if (Model.IntersectionRelated == 1)
         {
-            <tr><th>Intersection Related:</th><td>@Model.INTERSECTION_RELATED</td></tr>
+            <tr><th>Intersection Related:</th><td>True</td></tr>
         }
-        @if (Model.WILD_ANIMAL_RELATED == "TRUE")
+        @if (Model.WildAnimalRelated == 1)
         {
-            <tr><th>Wild Animal Related:</th><td>@Model.WILD_ANIMAL_RELATED</td></tr>
+            <tr><th>Wild Animal Related:</th><td>True</td></tr>
         }
-        @if (Model.DOMESTIC_ANIMAL_RELATED == "TRUE")
+        @if (Model.DomesticAnimalRelated == 1)
         {
-            <tr><th>Domestic Animal Related:</th><td>@Model.DOMESTIC_ANIMAL_RELATED</td></tr>
+            <tr><th>Domestic Animal Related:</th><td>True</td></tr>
         }
-        @if (Model.OVERTURN_ROLLOVER == "TRUE")
+        @if (Model.OverturnRollover == 1)
         {
-            <tr><th>Overturn Rollover:</th><td>@Model.OVERTURN_ROLLOVER</td></tr>
+            <tr><th>Overturn Rollover:</th><td>True</td></tr>
         }
-        @if (Model.COMMERCIAL_MOTOR_VEH_INVOLVED == "TRUE")
+        @if (Model.CommercialMotorVehInvolved == 1)
         {
-            <tr><th>Commercial Vehicle Invovled:</th><td>@Model.COMMERCIAL_MOTOR_VEH_INVOLVED</td></tr>
+            <tr><th>Commercial Vehicle Invovled:</th><td>True</td></tr>
+        }       
+        @if (Model.OlderDriverInvolved == 1)
+        {
+            <tr><th>Older Driver Involved:</th><td>True</td></tr>
         }
-        @if (Model.PEDESTRIAN_INVOLVED == "TRUE")
+        @if (Model.NightDarkCondition == 1)
         {
-            <tr><th>Teenage Driver Involved:</th><td>@Model.TEENAGE_DRIVER_INVOLVED</td></tr>
+            <tr><th>Collision Occurred at Night:</th><td>True</td></tr>
         }
-        @if (Model.OLDER_DRIVER_INVOLVED == "TRUE")
+        @if (Model.SingleVehicle == 1)
         {
-            <tr><th>Older Driver Involved:</th><td>@Model.OLDER_DRIVER_INVOLVED</td></tr>
+            <tr><th>Single Vehicle:</th><td>True</td></tr>
         }
-        @if (Model.NIGHT_DARK_CONDITION == "TRUE")
+        @if (Model.DistractedDriving == 1)
         {
-            <tr><th>Collision Occurred at Night:</th><td>@Model.NIGHT_DARK_CONDITION</td></tr>
+            <tr><th>Driver Distracted:</th><td>True</td></tr>
         }
-        @if (Model.SINGLE_VEHICLE == "TRUE")
+        @if (Model.DrowsyDriving == 1)
         {
-            <tr><th>Single Vehicle:</th><td>@Model.SINGLE_VEHICLE</td></tr>
+            <tr><th>Driver Drowsy:</th><td>True</td></tr>
         }
-        @if (Model.DISTRACTED_DRIVING == "TRUE")
+        @if (Model.RoadwayDeparture == 1)
         {
-            <tr><th>Driver Distracted:</th><td>@Model.DISTRACTED_DRIVING</td></tr>
+            <tr><th>Roadway Departure:</th><td>True</td></tr>
         }
-        @if (Model.DROWSY_DRIVING == "TRUE")
-        {
-            <tr><th>Driver Drowsy:</th><td>@Model.DROWSY_DRIVING</td></tr>
-        }
-        @if (Model.ROADWAY_DEPARTURE == "TRUE")
-        {
-            <tr><th>Roadway Departure:</th><td>@Model.ROADWAY_DEPARTURE</td></tr>
-        }*@
     </tbody>
 </table>

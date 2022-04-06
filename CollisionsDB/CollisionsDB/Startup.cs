@@ -64,8 +64,11 @@ namespace CollisionsDB
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    name: "Paging",
+                    pattern: "Page{pageNum}",
+                    defaults: new { Controller = "Home", action = "Summary", pageNum = 1 });
+
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }
