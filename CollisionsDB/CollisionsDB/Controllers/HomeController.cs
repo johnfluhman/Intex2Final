@@ -80,6 +80,7 @@ namespace CollisionsDB.Controllers
             result.Dispose();
             ViewBag.Result = prediction;
             return View();
+        }
 
         public IActionResult Details(int collisionid)
         {
