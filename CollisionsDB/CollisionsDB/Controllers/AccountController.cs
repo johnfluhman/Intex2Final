@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using CollisionsDB.Models;
 using CollisionsDB.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CollisionsDB.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         //private UserManager<IdentityUser> userManager;
@@ -102,6 +104,11 @@ namespace CollisionsDB.Controllers
         {
             repo.DeleteCollision(c);
             return RedirectToAction("Summary");
+        }
+
+        public IActionResult TestRestricted()
+        {
+            return View();
         }
 
         //public async Task<RedirectResult> Logout(string returnUrl = "/")
