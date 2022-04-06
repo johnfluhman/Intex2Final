@@ -2,6 +2,8 @@
     ViewData["Title"] = "Collision Database";
 }
 
+@model CollisionsViewModel
+
 <table class="table table-sm table-striped table-bordered">
 
     <thead>
@@ -19,13 +21,17 @@
         @foreach (var c in Model.Collisions)
         {
             <tr>
-                <td>@c.CRASH_DATETIME</td>
-                <td>@c.MAIN_ROAD_NAME</td>
+                <td>@c.CrashDatetime</td>
+                <td>@c.MainRoadName</td>
                 <td>@c.City.CityName</td>
                 <td>@c.County.CountyName</td>
-                <td>@c.CRASH_SEVERITY_ID</td>
-                <td><a asp-controller="Account" asp-action="EditCollision" asp-route-collisionid="@c.CRASH_ID" class="btn-sm btn-secondary">Edit</a></td>
-                <td><a asp-controller="Account" asp-action="DeleteCollision" asp-route-collisionid="@c.CRASH_ID" class="btn-sm btn-danger">Delete</a></td>
+                @if (c.CrashSeverityId == 5) {<td>Fatal</td>}
+                @if (c.CrashSeverityId == 4) {<td>Suspected Serious Injury</td>}
+                @if (c.CrashSeverityId == 3) {<td>Suspected Minor Injury</td>}
+                @if (c.CrashSeverityId == 2) {<td>Possible Injury</td>}
+                @if (c.CrashSeverityId == 1) {<td>No Injury</td>}  
+                <td><a asp-controller="Account" asp-action="EditCollision" asp-route-collisionid="@c.CrashId" class="btn-sm btn-secondary">Edit</a></td>
+                <td><a asp-controller="Account" asp-action="DeleteCollision" asp-route-collisionid="@c.CrashId" class="btn-sm btn-danger">Delete</a></td>
             </tr>
         }
     </tbody>

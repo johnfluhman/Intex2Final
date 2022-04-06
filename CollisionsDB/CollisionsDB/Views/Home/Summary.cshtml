@@ -25,7 +25,11 @@
                 <td>@c.MainRoadName</td>
                 <td>@c.City.CityName</td>
                 <td>@c.County.CountyName</td>
-                <td>@c.CrashSeverityId</td>
+                @if (c.CrashSeverityId == 5) {<td>Fatal</td>}
+                @if (c.CrashSeverityId == 4) {<td>Suspected Serious Injury</td>}
+                @if (c.CrashSeverityId == 3) {<td>Suspected Minor Injury</td>}
+                @if (c.CrashSeverityId == 2) {<td>Possible Injury</td>}
+                @if (c.CrashSeverityId == 1) {<td>No Injury</td>}                
                 <td><a asp-controller="Home" asp-action="Details" asp-route-collisionid="@c.CrashId">Details</a></td>
             </tr>
         }

@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using CollisionsDB.Models;
+using CollisionsDB.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace CollisionsDB.Controllers
 {
@@ -32,14 +34,38 @@ namespace CollisionsDB.Controllers
         }
 
         [HttpGet]
-        public IActionResult Summary()
+        public IActionResult Summary(int pageNum = 1)
         {
-            return View();
+            int pageSize = 100;
+
+            var x = new CollisionsViewModel
+            {
+                Collisions = repo.Collisions
+                    //.Where(c => c.Category == category || category == null)
+                    .Include(c => c.City)
+                    .Include(c => c.County)
+                    .OrderBy(c => c.CrashId)
+                    .Skip((pageNum - 1) * pageSize)
+                    .Take(pageSize),
+
+                PageInfo = new PageInfo
+                {
+                    TotalNumCrashes =
+                        (repo.Collisions.Count()),
+                    CrashesPerPage = pageSize,
+                    CurrentPage = pageNum
+                }
+
+            };
+
+            return View(x);
         }
 
         [HttpGet]
         public IActionResult Form()
         {
+            ViewBag.Cities = repo.Cities.ToList();
+            ViewBag.Counties = repo.Counties.ToList();
             return View();
         }
 

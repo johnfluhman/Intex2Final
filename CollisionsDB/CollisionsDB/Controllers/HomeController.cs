@@ -45,7 +45,7 @@ namespace CollisionsDB.Controllers
                     //.Where(c => c.Category == category || category == null)
                     .Include(c => c.City)
                     .Include(c => c.County)
-                    .OrderBy(c => c.CrashSeverityId)
+                    .OrderBy(c => c.CrashId)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
 
@@ -80,6 +80,14 @@ namespace CollisionsDB.Controllers
             result.Dispose();
             ViewBag.Result = prediction;
             return View();
+
+        public IActionResult Details(int collisionid)
+        {
+            var crash = repo.Collisions
+                .Include(c => c.City)
+                .Include(c => c.County)
+                .FirstOrDefault(x => x.CrashId == collisionid);
+            return View("Details", crash);
         }
     }
 }
