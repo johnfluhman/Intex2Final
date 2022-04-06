@@ -18,6 +18,7 @@
     <None Remove="Views\Shared\Components\" />
     <None Remove="Components\" />
     <None Remove="Views\Shared\Components\Counties\" />
+    <None Remove="Microsoft.AspNetCore.Identity.UI" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.22" />
@@ -33,6 +34,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.22" />
     <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.11.0" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.22" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\" />
