@@ -44,7 +44,7 @@ namespace CollisionsDB.Controllers
         }
 
         [HttpPost]
-        public IActionResult From(Collision c)
+        public IActionResult Form(Collision c)
         {
             repo.AddCollision(c);
             return RedirectToAction("Summary");

@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace CollisionsDB.Models.ViewModels
 {
     public class PageInfo

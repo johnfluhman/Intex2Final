@@ -1,5 +1,225 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Form";
 }
+
+@*<form method="post">
+        <div asp-validation-summary="All"></div>
+        <label asp-for="CRASH_DATETIME"><strong>Date of Collision:</strong></label><br />
+        <input asp-for="CRASH_DATETIME" /><br />
+
+        <label asp-for="ROUTE"><strong>Route Collision Occurred On:</strong></label><br />
+        <input asp-for="ROUTE" /><br />
+
+        <label asp-for="MILEPOINT"><strong>Mile Point Collision At:</strong></label><br />
+        <input asp-for="MILEPOINT" /><br />
+
+        <label asp-for="LAT_UTM_Y"><strong>Latitude of Collision:</strong></label><br />
+        <input asp-for="LAT_UTM_Y" /><br />
+
+        <label asp-for="LONG_UTM_X"><strong>Longitude of Collision:</strong></label><br />
+        <input asp-for="LONG_UTM_X" /><br />
+
+        <label asp-for="MAIN_ROAD_NAME"><strong>Name of Road Where Collision Occurred:</strong></label><br />
+        <input asp-for="MAIN_ROAD_NAME" /><br />
+
+        <label asp-for="CITY"><strong>City Where Collision Occurred:</strong></label><br />
+        <select asp-for="CITY" />
+        <option value="">Select a City</option>
+        @foreach (Category m in ViewBag.Cities)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="COUNTY_NAME"><strong>County Where Collision Occurred:</strong></label><br />
+        <select asp-for="COUNTY_NAME" />
+        <option value="">Select a County</option>
+        @foreach (Category m in ViewBag.Countys)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="CRASH_SEVERITY_ID"><strong>Select the Severity of the Crash:</strong></label><br />
+        <select asp-for="CRASH_SEVERITY_ID" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.Severity)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="WORK_ZONE_RELATED"><strong>Did the Collision Occur in a Work Zone:</strong></label><br />
+        <select asp-for="WORK_ZONE_RELATED" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.WorkZone)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="PEDESTRIAN_INVOLVED"><strong>Was There a Pedestrian Involved:</strong></label><br />
+        <select asp-for="PEDESTRIAN_INVOLVED" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.Pedestrian)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="BICYCLIST_INVOLVED"><strong>Was There a Bicycle Involved:</strong></label><br />
+        <select asp-for="BICYCLIST_INVOLVED" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.Bicycle)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="MOTORCYCLE_INVOLVED"><strong>Was There a Motorcycle Involved:</strong></label><br />
+        <select asp-for="MOTORCYCLE_INVOLVED" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.Motorcycle)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="IMPROPER_RESTRAINT"><strong>Was There any Improper Restraint Involved:</strong></label><br />
+        <select asp-for="IMPROPER_RESTRAINT" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.ImproperRestraint)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="UNRESTRAINED"><strong>Was There Anyone Unrestrained:</strong></label><br />
+        <select asp-for="UNRESTRAINED" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.unrestrained)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="DUI"><strong>Was There a DUI Involved:</strong></label><br />
+        <select asp-for="DUI" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.Dui)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="INTERSECTION_RELATED"><strong>Was There an Intersection Involved:</strong></label><br />
+        <select asp-for="INTERSECTION_RELATED" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.Intersection)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="WILD_ANIMAL_RELATED"><strong>Was There a Wild Animal Involved:</strong></label><br />
+        <select asp-for="WILD_ANIMAL_RELATED" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.WildAnimal)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="DOMESTIC_ANIMAL_RELATED"><strong>Was There a Domisticated Animal Involved:</strong></label><br />
+        <select asp-for="DOMESTIC_ANIMAL_RELATED" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.DomisticatedAnimal)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="OVERTURN_ROLLOVER"><strong>Was There an Overturn/Rollover Involved:</strong></label><br />
+        <select asp-for="OVERTURN_ROLLOVER" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.OverturnRollover)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="COMMERCIAL_MOTOR_VEH_INVOLVED"><strong>Was There a Commercial Motor Vehicle Involved:</strong></label><br />
+        <select asp-for="COMMERCIAL_MOTOR_VEH_INVOLVED" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.CommercialVehicle)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="TEENAGE_DRIVER_INVOLVED"><strong>Was There a Teenage Driver Involved:</strong></label><br />
+        <select asp-for="TEENAGE_DRIVER_INVOLVED" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.TeenageDriver)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="OLDER_DRIVER_INVOLVED"><strong>Was There an Older Driver Involved:</strong></label><br />
+        <select asp-for="OLDER_DRIVER_INVOLVED" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.OlderDriver)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="NIGHT_DARK_CONDITION"><strong>Was it Dark Outside:</strong></label><br />
+        <select asp-for="NIGHT_DARK_CONDITION" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.NightDark)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="SINGLE_VEHICLE"><strong>Was There Only a Single Vehicle Involved:</strong></label><br />
+        <select asp-for="SINGLE_VEHICLE" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.SingleVehicle)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="DISTRACTED_DRIVING"><strong>Were There any Distracted Drivers Involved:</strong></label><br />
+        <select asp-for="DISTRACTED_DRIVING" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.DistractedDriving)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="DROWSY_DRIVING"><strong>Were There any Drowsy Drivers Involved:</strong></label><br />
+        <select asp-for="DROWSY_DRIVING" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.DrowsyDriving)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <label asp-for="ROADWAY_DEPARTURE"><strong>Were There any Roadway Departures Involved:</strong></label><br />
+        <select asp-for="ROADWAY_DEPARTURE" />
+        <option value="">Select an Option</option>
+        @foreach (Category m in ViewBag.DistractedDriving)
+        {
+            <option value="@m.CategoryID">@m.CategoryName</option>
+        }
+        </select><br />
+
+        <!--Submit Button-->
+        <button type="submit">Submit Form</button>
+    </form>*@

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CollisionsDB.Models;
 using CollisionsDB.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace CollisionsDB.Controllers
 {
@@ -38,6 +39,8 @@ namespace CollisionsDB.Controllers
             {
                 Collisions = repo.Collisions
                     //.Where(c => c.Category == category || category == null)
+                    .Include(c => c.City)
+                    .Include(c => c.County)
                     .OrderBy(c => c.CrashSeverityId)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
