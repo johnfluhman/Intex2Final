@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using CollisionsDB.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.ML.OnnxRuntime;
 
 namespace CollisionsDB
 {
@@ -38,6 +39,10 @@ namespace CollisionsDB
 
             services.AddDistributedMemoryCache();
             services.AddSession();
+
+            services.AddSingleton<InferenceSession>(
+                new InferenceSession("Models/trained_model_hgboost.onnx")
+            );
 
             //services.AddIdentity<IdentityUser, IdentityRole>()
             //    .AddEntityFrameworkStores<AppIdentityDBContext>();
