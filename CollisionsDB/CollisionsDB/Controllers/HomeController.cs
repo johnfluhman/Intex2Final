@@ -51,8 +51,7 @@ namespace CollisionsDB.Controllers
 
                 PageInfo = new PageInfo
                 {
-                    TotalNumCrashes =
-                        (repo.Collisions.Count()),
+                    TotalNumCrashes = repo.Collisions.Count(),
                     CrashesPerPage = pageSize,
                     CurrentPage = pageNum
                 }
