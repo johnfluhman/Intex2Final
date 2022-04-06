@@ -26,7 +26,7 @@
                 <td>@c.City.CityName</td>
                 <td>@c.County.CountyName</td>
                 <td>@c.CrashSeverityId</td>
-                <!--<a href="">View Details</a>-->
+                <td><a asp-controller="Home" asp-action="Details" asp-route-collisionid="@c.CrashId">Details</a></td>
             </tr>
         }
     </tbody>
