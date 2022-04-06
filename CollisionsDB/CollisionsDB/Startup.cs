@@ -69,8 +69,18 @@ namespace CollisionsDB
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "countypage",
+                    pattern: "{county}/Page{pageNum}",
+                    defaults: new { Controller = "Home", action = "Summary"});
+
+                endpoints.MapControllerRoute(
                     name: "Paging",
                     pattern: "Page{pageNum}",
+                    defaults: new { Controller = "Home", action = "Summary", pageNum = 1 });
+
+                endpoints.MapControllerRoute(
+                    name: "county",
+                    pattern: "{county}",
                     defaults: new { Controller = "Home", action = "Summary", pageNum = 1 });
 
                 endpoints.MapDefaultControllerRoute();
