@@ -88,6 +88,8 @@ namespace CollisionsDB.Controllers
                 .Include(c => c.City)
                 .Include(c => c.County)
                 .FirstOrDefault(x => x.CrashId == collisionid);
+
+            ViewBag.CrashId = collisionid;
             return View("Details", crash);
         }
     }
