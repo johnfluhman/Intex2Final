@@ -123,6 +123,15 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td colspan="2">
+                            <h4>
+                                This crash was
+                                <span class="font-weight-bold text-@ViewBag.ComparisonTextClass">@ViewBag.SeverityComparison</span>
+                                @(ViewBag.ActualSeverity == ViewBag.RoundedPrediction ? "as" : "than") most crashes of this type.
+                            </h4>
+                        </td>
+                    </tr>
+                    <tr>
                         <th>Actual Severity:</th>
                         <td>@ViewBag.ActualSeverity</td>
                     </tr>
@@ -130,13 +139,13 @@
                         <th>Predicted Severity:</th>
                         <td>@ViewBag.RoundedPrediction</td>
                     </tr>
-                    <tr>
-                        <td colspan="2">
-                            <h3>This crash was
-                            <span class="font-weight-bold text-@ViewBag.ComparisonTextClass">@ViewBag.SeverityComparison</span>
-                            @(ViewBag.ActualSeverity == ViewBag.RoundedPrediction ? "as" : "than") most crashes of this type.</h3>
-                        </td>
-                    </tr>
+                    @foreach (SeverityReducer sr in ViewBag.SeverityReducers)
+                    {
+                        <tr>
+                            <th>Predicted Severity if @sr.Attribute:</th>
+                            <td class="text-success font-weight-bold">@sr.Severity.CrashSeverityId - @sr.Severity.Description</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
           </div>
