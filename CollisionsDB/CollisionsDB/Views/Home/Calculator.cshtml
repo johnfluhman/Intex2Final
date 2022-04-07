@@ -31,52 +31,52 @@
 
                 <div class="form-group">
                     <label asp-for="Milepoint"><b>Milepoint</b></label>
-                    <input asp-for="Milepoint" class="form-control" />
+                    <input class="form-control" asp-for="Milepoint" />
                 </div>
 
                 <div class="form-group">
                     <label asp-for="LatUtmY"><b>Latitude</b></label>
-                    <input asp-for="LatUtmY" class="form-control" />
+                    <input class="form-control" asp-for="LatUtmY" />
                 </div>
 
                 <div class="form-group">
                     <label asp-for="LongUtmX"><b>Longitude</b></label>
-                    <input asp-for="LongUtmX" class="form-control" />
+                    <input class="form-control" asp-for="LongUtmX" />
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="PedestrianInvolved"><b>Pedestrian Involved?</b></label>
-                    <input type="checkbox" asp-for="PedestrianInvolved" class="form-control" />
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" asp-for="PedestrianInvolved" />
+                    <label class="form-check-label" asp-for="PedestrianInvolved"><b>Pedestrian Involved?</b></label>
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="BicyclistInvolved"><b>Bicyclist Involved?</b></label>
-                    <input type="checkbox" asp-for="BicyclistInvolved" class="form-control" />
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" asp-for="BicyclistInvolved" />
+                    <label class="form-check-label" asp-for="BicyclistInvolved"><b>Bicyclist Involved?</b></label>
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="MotorcycleInvolved"><b>Motorcycle Involved?</b></label>
-                    <input type="checkbox" asp-for="MotorcycleInvolved" class="form-control" />
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" asp-for="MotorcycleInvolved" />
+                    <label class="form-check-label" asp-for="MotorcycleInvolved"><b>Motorcycle Involved?</b></label>
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="OverturnRollover"><b>Vehicle Overturned/Rolled Over?</b></label>
-                    <input type="checkbox" asp-for="OverturnRollover" class="form-control" />
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" asp-for="OverturnRollover" />
+                    <label class="form-check-label" asp-for="OverturnRollover"><b>Vehicle Overturned/Rolled Over?</b></label>
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="TeenageDriverInvolved"><b>Teenage Driver Involved?</b></label>
-                    <input type="checkbox" asp-for="TeenageDriverInvolved" class="form-control" />
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" asp-for="TeenageDriverInvolved" />
+                    <label class="form-check-label" asp-for="TeenageDriverInvolved"><b>Teenage Driver Involved?</b></label>
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="NightDarkCondition"><b>Was it Dark Out?</b></label>
-                    <input type="checkbox" asp-for="NightDarkCondition" class="form-control" />
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" asp-for="NightDarkCondition" />
+                    <label class="form-check-label" asp-for="NightDarkCondition"><b>Was it Dark Out?</b></label>
                 </div>
 
-                <button class="btn btn-primary btn-sm" type="submit">Make Prediction</button>
+                <button class="btn btn-primary btn-sm mt-3" type="submit">Make Prediction</button>
             </form>
-                </div>
+            </div>
         </div>
     </div>
 </div>

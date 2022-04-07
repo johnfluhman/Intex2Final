@@ -1,0 +1,53 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!--Hero Section-->
+<div class="page-titles-img title-space-lg bg-parallax parallax-overlay" data-jarallax='{"speed": 0.2}' style='background-image: url("images/bg8.jpg")'>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-8 ml-auto mr-auto">
+                <h1 class='text-uppercase'>Analytics</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container pt60 pb30">
+    <div class="row">
+        <div class="col-lg-4 mb30">
+            <div class="d-flex justify-content-center">
+                <a href="/Home/HeatMap?width=400">
+                    <img src="/Home/HeatMap?width=186" class="img-fluid mb20" />
+                </a>
+            </div>
+            <h4 class="text-uppercase">Severity Prediction Map</h4>
+            <p>
+                This graph shows where the most severe crashes are likely to occur. <span class="badge badge-info">Powered By Machine Learning&trade;</span>
+            </p>
+        </div>
+        <div class="col-lg-4 mb30">
+            <img src="~/images/feature_importances.png" class="img-fluid mb20" />
+            <h4 class="text-uppercase">Feature Importances</h4>
+            <p>
+                These features are the best predictors of crash severity.
+            </p>
+        </div>
+        <div class="col-lg-4 mb30">
+            <img src="~/images/loren-cutler-4_lfmkpRcZM-unsplash.jpg" class="img-fluid mb20" />
+            <div>
+
+            </div>
+            <h4 class="text-uppercase">Crashes This Year - 2019</h4>
+            <ol>
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <li>
+                        @ViewBag.CrashSeverities[i - 1].Description: @ViewBag.NumCrashes[i]
+                    </li>
+                }
+            </ol>
+        </div>
+    </div>
+</div>

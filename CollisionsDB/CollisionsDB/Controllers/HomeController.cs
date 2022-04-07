@@ -10,6 +10,11 @@ using CollisionsDB.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
+using System.Drawing;
+using System.Net.Http;
+using System.IO;
+using System.Net;
+using System.Net.Http.Headers;
 
 namespace CollisionsDB.Controllers
 {
@@ -127,7 +132,7 @@ namespace CollisionsDB.Controllers
                 comparisonTextClass = "info";
             }
             // add the word "much" if the difference is big
-            if(Math.Abs(roundedPrediction - crash.CrashSeverityId) >= 2)
+            if(Math.Abs(roundedPrediction - crash.CrashSeverityId) >= 3)
             {
                 comparison = "much " + comparison;
             }
@@ -209,6 +214,100 @@ namespace CollisionsDB.Controllers
             }
 
             return reducers;
+        }
+
+        public IActionResult Analytics()
+        {
+            // get a sum of all crashes by type for most recent year in dataset
+            string year = "2019";
+            Dictionary<int, int> numCrashes = new Dictionary<int, int>();
+            for(int i = 1; i <= 5; i++)
+            {
+                // kinda hacky but it works
+                numCrashes[i] = repo.Collisions.Where(c => c.CrashDatetime.Contains("/" + year)).Count(c => c.CrashSeverityId == i);
+            }
+            ViewBag.NumCrashes = numCrashes;
+            ViewBag.CrashSeverities = repo.CrashSeverities.ToList<CrashSeverity>();
+            return View();
+        }
+
+
+        // returns an image that shows how the ML model converts location into severity
+        public IActionResult HeatMap(int width=225)
+        {
+            // these dimensions are roughly the shape of utah
+            //int width = 225;
+            //int height = 275;
+            
+            // compute image height automatically (Utah is ~22% taller than it is wide)
+            int height = (int)(width * 1.222222f);
+
+            // the UTM boundaries of Utah (roughly)
+            float LatMin = 4095217.62f;
+            float LatMax = 4651314.56f;
+            float LongMin = 234453.51f;
+            float LongMax = 672162f;
+
+            // the corner of utah begins at around the 58% mark width and 80% height
+            float cornerX = .58f;
+            float cornerY = .8f;
+
+            float UtahWidth = LongMax - LongMin;
+            float UtahHeight = LatMax - LatMin;
+
+            CrashDataInput input = new CrashDataInput
+            {
+                LatUtmY = 0,
+                LongUtmX = 0,
+                // average milepoint in the data
+                Milepoint = 70.34f,
+                BicyclistInvolved = false,
+                OverturnRollover = false,
+                NightDarkCondition = false,
+                TeenageDriverInvolved = false,
+                MotorcycleInvolved = false,
+                PedestrianInvolved = false,
+            };
+
+            using (Bitmap image = new Bitmap(width, height))
+            {
+                for(int x = 0; x < width; x++)
+                {
+                    for(int y = 0; y < height; y++)
+                    {
+                        // convert x and y into 0-1 range
+                        float relX = (float)x / width;
+                        float relY = (float)y / height;
+
+                        // convert the 0-1 range into UTM units
+                        float lon = UtahWidth * relX + LongMin;
+                        float lat = UtahHeight * relY + LatMin;
+
+                        input.LongUtmX = lon;
+                        input.LatUtmY = lat;
+                        float brightness = GetSeverityPrediction(input).PredictedValue;
+                        // convert brightness from 1-5 to 0-255
+                        brightness = (brightness - 1) * 64;
+                        // scale brightness
+                        brightness *= brightness / 4;
+                        // clamp
+                        if (brightness > 255) brightness = 255;
+
+                        image.SetPixel(x, height-y-1, Color.FromArgb(255, (int)brightness, 0, 0));
+
+                        // auto set to black if outside utah bounds
+                        if (relX > cornerX && relY > cornerY)
+                        {
+                            image.SetPixel(x, height - y - 1, Color.Transparent);
+                        }
+                    }
+                }
+                MemoryStream ms = new MemoryStream();
+
+                image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+
+                return File(ms.ToArray(), "image/png");
+            }
         }
     }
 }
