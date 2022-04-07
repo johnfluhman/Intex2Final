@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using CollisionsDB.Models;
 using CollisionsDB.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CollisionsDB.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         //private UserManager<IdentityUser> userManager;
@@ -64,8 +66,8 @@ namespace CollisionsDB.Controllers
         [HttpGet]
         public IActionResult Form()
         {
-            ViewBag.Cities = repo.Cities.ToList();
-            ViewBag.Counties = repo.Counties.ToList();
+            ViewBag.Cities = repo.Cities.ToList().OrderBy(x => x.CityName);
+            ViewBag.Counties = repo.Counties.ToList().OrderBy(x => x.CountyName);
             return View();
         }
 
@@ -79,6 +81,8 @@ namespace CollisionsDB.Controllers
         [HttpGet]
         public IActionResult EditCollision(int collisionid)
         {
+            ViewBag.Cities = repo.Cities.ToList().OrderBy(x => x.CityName);
+            ViewBag.Counties = repo.Counties.ToList().OrderBy(x => x.CountyName);
             var edit = repo.Collisions.Single(x => x.CrashId == collisionid);
             return View("Form", edit);
         }
@@ -102,6 +106,11 @@ namespace CollisionsDB.Controllers
         {
             repo.DeleteCollision(c);
             return RedirectToAction("Summary");
+        }
+
+        public IActionResult TestRestricted()
+        {
+            return View();
         }
 
         //public async Task<RedirectResult> Logout(string returnUrl = "/")

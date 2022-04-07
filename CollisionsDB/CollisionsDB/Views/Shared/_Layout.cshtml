@@ -51,10 +51,12 @@
                             <a class="btn btn-sm btn-primary nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Admin Login</a>
                         </li>
                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
+  <partial name="_CookieConsentPartial" />
 
     @RenderBody()
 
@@ -92,11 +94,6 @@
             </div>
         </div>
     </div>
-    @*<footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - CollisionsDB - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>*@
 
     <!--Start of Javascript-->
     <script src="~/js/plugins/plugins.js"></script>
