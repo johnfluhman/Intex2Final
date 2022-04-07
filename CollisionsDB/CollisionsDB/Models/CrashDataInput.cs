@@ -48,6 +48,11 @@ namespace CollisionsDB.Models
             }
         }
 
+        public CrashDataInput Clone()
+        {
+            return (CrashDataInput)this.MemberwiseClone();
+        }
+
         public Tensor<float> AsTensor()
         {
 

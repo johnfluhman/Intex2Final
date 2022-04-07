@@ -35,7 +35,7 @@ namespace CollisionsDB.Controllers
         }
 
         [HttpGet]
-        public IActionResult Summary(string county, int pageNum = 1)
+        public IActionResult Summary(int pageNum = 1)
         {
             int pageSize = 100;
 
@@ -95,23 +95,120 @@ namespace CollisionsDB.Controllers
             var crash = repo.Collisions
                 .Include(c => c.City)
                 .Include(c => c.County)
+                .Include( c => c.CrashSeverity)
                 .FirstOrDefault(x => x.CrashId == collisionid);
 
 
-            ViewBag.CrashId = collisionid;
-            
             // predict what the crash severity SHOULD have been
             CrashDataInput crashMLInput = CrashDataInput.CollisionToMLInput(crash);
-            float predictedSeverity = GetSeverityPrediction(crashMLInput).PredictedValue;
-            float roundedPrediction = (float)Math.Round(predictedSeverity);
-            float actualSeverity = crash.CrashSeverityId;
-            float severityDifferencePercentage = actualSeverity / predictedSeverity;
-            ViewBag.PredictedSeverity = predictedSeverity;
-            ViewBag.RoundedPrediction = roundedPrediction;
-            ViewBag.SeverityDifference = severityDifferencePercentage;
+            float predictedSeverityValue = GetSeverityPrediction(crashMLInput).PredictedValue;
+            int roundedPrediction = (int)Math.Round(predictedSeverityValue);
+            CrashSeverity predictedCrashSeverity = repo.CrashSeverities.Where(cs => cs.CrashSeverityId == roundedPrediction).FirstOrDefault();
+            ViewBag.ActualSeverity = crash.CrashSeverityId.ToString() + " - " + crash.CrashSeverity.Description;
+            ViewBag.PredictedSeverity = predictedSeverityValue;
+            ViewBag.RoundedPrediction = roundedPrediction.ToString() + " - " + predictedCrashSeverity.Description;
 
-            // if this crash happened during the daytime, the severity would have decreased by 17%
+            string comparison;
+            string comparisonTextClass;
+            // generate a line of text that comments on the prediction vs actual
+            if(roundedPrediction > crash.CrashSeverityId)
+            {
+                comparison = "less severe";
+                comparisonTextClass = "success";
+            }
+            else if(roundedPrediction < crash.CrashSeverityId)
+            {
+                comparison = "more severe";
+                comparisonTextClass = "danger";
+            }
+            else
+            {
+                comparison = "equally severe";
+                comparisonTextClass = "info";
+            }
+            // add the word "much" if the difference is big
+            if(Math.Abs(roundedPrediction - crash.CrashSeverityId) >= 2)
+            {
+                comparison = "much " + comparison;
+            }
+            ViewBag.ComparisonTextClass = comparisonTextClass;
+            ViewBag.SeverityComparison = comparison;
+
+
+            // run simulations to determine what would have reduced the severity of the collision
+            List<SeverityReducer> severityReducers = CalculateSeverityReducers(crashMLInput, crash.CrashSeverityId);
+            ViewBag.SeverityReducers = severityReducers;
             return View("Details", crash);
+        }
+
+        // this function simulates a crash with slightly different values
+        // to determine what could have reduced the severity of the crash
+        private List<SeverityReducer> CalculateSeverityReducers(CrashDataInput input, int baselineActual)
+        {
+            List<SeverityReducer> reducers = new List<SeverityReducer>();
+            int baselinePrediction = (int)Math.Round(GetSeverityPrediction(input).PredictedValue);
+
+            // for each boolean variable, simulate an alternate reality where that thing didn't happen
+            if (input.BicyclistInvolved)
+            {
+                CrashDataInput noBike = input.Clone();
+                noBike.BicyclistInvolved = false;
+                int noBikeSeverity = (int)Math.Round(GetSeverityPrediction(noBike).PredictedValue);
+                CrashSeverity severity = repo.CrashSeverities.FirstOrDefault(x => x.CrashSeverityId == noBikeSeverity);
+                if (noBikeSeverity < baselineActual && noBikeSeverity < baselinePrediction) reducers.Add(new SeverityReducer { Attribute = "no Bicycle Was Involved in Crash", Severity = severity });
+            }
+
+            // for each boolean variable, simulate an alternate reality where that thing didn't happen
+            if (input.NightDarkCondition)
+            {
+                CrashDataInput day = input.Clone();
+                day.NightDarkCondition = false;
+                int daySeverity = (int)Math.Round(GetSeverityPrediction(day).PredictedValue);
+                CrashSeverity severity = repo.CrashSeverities.FirstOrDefault(x => x.CrashSeverityId == daySeverity);
+                if (daySeverity < baselineActual && daySeverity < baselinePrediction) reducers.Add(new SeverityReducer { Attribute = "the Crash Occurred Under Better Lighting Conditions", Severity = severity });
+            }
+
+            // for each boolean variable, simulate an alternate reality where that thing didn't happen
+            if (input.OverturnRollover)
+            {
+                CrashDataInput noRollover = input.Clone();
+                noRollover.OverturnRollover = false;
+                int noRolloverSeverity = (int)Math.Round(GetSeverityPrediction(noRollover).PredictedValue);
+                CrashSeverity severity = repo.CrashSeverities.FirstOrDefault(x => x.CrashSeverityId == noRolloverSeverity);
+                if (noRolloverSeverity < baselineActual && noRolloverSeverity < baselinePrediction) reducers.Add(new SeverityReducer { Attribute = "a Vehicle Did Not Overturn", Severity = severity });
+            }
+
+            // for each boolean variable, simulate an alternate reality where that thing didn't happen
+            if (input.MotorcycleInvolved)
+            {
+                CrashDataInput noMotorCycle = input.Clone();
+                noMotorCycle.MotorcycleInvolved = false;
+                int noMotorCycleSeverity = (int)Math.Round(GetSeverityPrediction(noMotorCycle).PredictedValue);
+                CrashSeverity severity = repo.CrashSeverities.FirstOrDefault(x => x.CrashSeverityId == noMotorCycleSeverity);
+                if (noMotorCycleSeverity < baselineActual && noMotorCycleSeverity < baselinePrediction) reducers.Add(new SeverityReducer { Attribute = "No Motorcycle Was Involved in Crash", Severity = severity });
+            }
+
+            // for each boolean variable, simulate an alternate reality where that thing didn't happen
+            if (input.PedestrianInvolved)
+            {
+                CrashDataInput noPed = input.Clone();
+                noPed.BicyclistInvolved = false;
+                int noPedSeverity = (int)Math.Round(GetSeverityPrediction(noPed).PredictedValue);
+                CrashSeverity severity = repo.CrashSeverities.FirstOrDefault(x => x.CrashSeverityId == noPedSeverity);
+                if (noPedSeverity < baselineActual && noPedSeverity < baselinePrediction) reducers.Add(new SeverityReducer { Attribute = "No Pedestrian Was Involved in Crash", Severity = severity });
+            }
+
+            // for each boolean variable, simulate an alternate reality where that thing didn't happen
+            if (input.TeenageDriverInvolved)
+            {
+                CrashDataInput noTeen = input.Clone();
+                noTeen.BicyclistInvolved = false;
+                int noTeenSeverity = (int)Math.Round(GetSeverityPrediction(noTeen).PredictedValue);
+                CrashSeverity severity = repo.CrashSeverities.FirstOrDefault(x => x.CrashSeverityId == noTeenSeverity);
+                if (noTeenSeverity < baselineActual && noTeenSeverity < baselinePrediction) reducers.Add(new SeverityReducer { Attribute = "No Teenage Driver Was Involved", Severity = severity });
+            }
+
+            return reducers;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CollisionsDB.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -21,8 +22,11 @@ namespace CollisionsDB
         public double? LongUtmX { get; set; }
         [Required]
         public string MainRoadName { get; set; }
+
         [Required, Range(1, 5, ErrorMessage = "Please select a value")]
         public int CrashSeverityId { get; set; }
+        public CrashSeverity CrashSeverity { get; set; }
+
         [Required, Range(0, 1, ErrorMessage = "Please select a value")]
         public int WorkZoneRelated { get; set; }
         [Required, Range(0, 1, ErrorMessage = "Please select a value")]
