@@ -14,63 +14,60 @@
     </div>
 </div>
 
+<br /><br />
 <div class='container-fluid no-padding mb40'>
     <div class='row no-margin'>
-      <div class="col-3">
-        <vc:counties></vc:counties>
-      </div>
-        <div class='col-lg-8  mr-auto ml-auto'>
-            <br /><br />
-            <div class="title-heading1 mb30">
-                <h3>Click "Details" To Learn More About a Specific Collision</h3>
-            </div>
-                <table class="table table-sm table-striped table-bordered">
-                    <thead>
+        <div class="col-3">
+            <vc:counties></vc:counties>
+        </div>
+        <div class='col-9'>
+            <table class="table table-sm table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Crash Date</th>
+                        <th>Road Name</th>
+                        <th>City</th>
+                        <th>County</th>
+                        <th>Severity</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var c in Model.Collisions)
+                    {
                         <tr>
-                            <th>Crash Date</th>
-                            <th>Road Name</th>
-                            <th>City</th>
-                            <th>County</th>
-                            <th>Severity</th>
+                            <td>@c.CrashDatetime</td>
+                            <td>@c.MainRoadName</td>
+                            <td>@c.City.CityName</td>
+                            <td>@c.County.CountyName</td>
+                            @if (c.CrashSeverityId == 5)
+                            {
+                                <td>Fatal</td>
+                            }
+                            @if (c.CrashSeverityId == 4)
+                            {
+                                <td>Suspected Serious Injury</td>
+                            }
+                            @if (c.CrashSeverityId == 3)
+                            {
+                                <td>Suspected Minor Injury</td>
+                            }
+                            @if (c.CrashSeverityId == 2)
+                            {
+                                <td>Possible Injury</td>
+                            }
+                            @if (c.CrashSeverityId == 1)
+                            {
+                                <td>No Injury</td>
+                            }
+                            <td><a class="btn btn-primary btn-sm" asp-controller="Home" asp-action="Details" asp-route-collisionid="@c.CrashId">Details</a></td>
                         </tr>
-                    </thead>
-
-                    <tbody>
-
-                        @foreach (var c in Model.Collisions)
-                        {
-                            <tr>
-                                <td>@c.CrashDatetime</td>
-                                <td>@c.MainRoadName</td>
-                                <td>@c.City.CityName</td>
-                                <td>@c.County.CountyName</td>
-                                @if (c.CrashSeverityId == 5)
-                                {
-                                    <td>Fatal</td>
-                                }
-                                @if (c.CrashSeverityId == 4)
-                                {
-                                    <td>Suspected Serious Injury</td>
-                                }
-                                @if (c.CrashSeverityId == 3)
-                                {
-                                    <td>Suspected Minor Injury</td>
-                                }
-                                @if (c.CrashSeverityId == 2)
-                                {
-                                    <td>Possible Injury</td>
-                                }
-                                @if (c.CrashSeverityId == 1)
-                                {
-                                    <td>No Injury</td>
-                                }
-                                <td><a class="btn btn-primary btn-sm" asp-controller="Home" asp-action="Details" asp-route-collisionid="@c.CrashId">Details</a></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                <br />
-            <div page-model="@Model.PageInfo" page-action="Summary" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-right m1"></div>
+                    }
+                </tbody>
+            </table>
+            <br />
+            <div page-model="@Model.PageInfo" page-action="Summary" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-left m1"></div>
         </div>
     </div>
 </div>
