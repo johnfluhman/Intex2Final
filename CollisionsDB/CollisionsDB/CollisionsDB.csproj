@@ -91,4 +91,9 @@
     <None Include="wwwroot\cubeportfolio\js\jquery.cubeportfolio.js" />
     <None Include="wwwroot\cubeportfolio\js\jquery.cubeportfolio.min.js" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Models\trained_model_hgboost.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
