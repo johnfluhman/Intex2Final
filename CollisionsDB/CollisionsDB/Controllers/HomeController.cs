@@ -125,7 +125,7 @@ namespace CollisionsDB.Controllers
                 comparisonTextClass = "info";
             }
             // add the word "much" if the difference is big
-            if(Math.Abs(roundedPrediction - crash.CrashSeverityId) >= 2)
+            if(Math.Abs(roundedPrediction - crash.CrashSeverityId) >= 3)
             {
                 comparison = "much " + comparison;
             }
