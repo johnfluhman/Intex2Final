@@ -66,8 +66,8 @@ namespace CollisionsDB.Controllers
         [HttpGet]
         public IActionResult Form()
         {
-            ViewBag.Cities = repo.Cities.ToList().OrderBy(x => x.CityName);
-            ViewBag.Counties = repo.Counties.ToList().OrderBy(x => x.CountyName);
+            ViewBag.Cities = repo.Cities.ToList().Distinct().OrderBy(x => x.CityName);
+            ViewBag.Counties = repo.Counties.ToList().Distinct().OrderBy(x => x.CountyName);
             return View();
         }
 
@@ -81,8 +81,8 @@ namespace CollisionsDB.Controllers
         [HttpGet]
         public IActionResult EditCollision(int collisionid)
         {
-            ViewBag.Cities = repo.Cities.ToList().OrderBy(x => x.CityName);
-            ViewBag.Counties = repo.Counties.ToList().OrderBy(x => x.CountyName);
+            ViewBag.Cities = repo.Cities.ToList().Distinct().OrderBy(x => x.CityName);
+            ViewBag.Counties = repo.Counties.ToList().Distinct().OrderBy(x => x.CountyName);
             var edit = repo.Collisions.Single(x => x.CrashId == collisionid);
             return View("Form", edit);
         }

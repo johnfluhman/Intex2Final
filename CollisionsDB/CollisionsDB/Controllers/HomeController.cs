@@ -35,7 +35,7 @@ namespace CollisionsDB.Controllers
         }
 
         [HttpGet]
-        public IActionResult Summary(int pageNum = 1)
+        public IActionResult Summary(string county, int pageNum = 1)
         {
             int pageSize = 100;
 
@@ -95,6 +95,9 @@ namespace CollisionsDB.Controllers
                 .Include(c => c.County)
                 .FirstOrDefault(x => x.CrashId == collisionid);
 
+
+            ViewBag.CrashId = collisionid;
+            
             // predict what the crash severity SHOULD have been
             CrashDataInput crashMLInput = CrashDataInput.CollisionToMLInput(crash);
             float predictedSeverity = GetSeverityPrediction(crashMLInput).PredictedValue;
@@ -106,7 +109,6 @@ namespace CollisionsDB.Controllers
             ViewBag.SeverityDifference = severityDifferencePercentage;
 
             // if this crash happened during the daytime, the severity would have decreased by 17%
-
             return View("Details", crash);
         }
     }
