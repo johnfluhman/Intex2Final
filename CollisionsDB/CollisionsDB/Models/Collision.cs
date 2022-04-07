@@ -17,8 +17,8 @@ namespace CollisionsDB
         public string CrashDatetime { get; set; }
         public int? Route { get; set; }
         public double? Milepoint { get; set; }
-        public double LatUtmY { get; set; }
-        public double LongUtmX { get; set; }
+        public double? LatUtmY { get; set; }
+        public double? LongUtmX { get; set; }
         [Required]
         public string MainRoadName { get; set; }
         [Required, Range(1, 5, ErrorMessage = "Please select a value")]
