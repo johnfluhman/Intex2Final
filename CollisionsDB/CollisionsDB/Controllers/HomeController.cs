@@ -221,11 +221,14 @@ namespace CollisionsDB.Controllers
 
 
         // returns an image that shows how the ML model converts location into severity
-        public IActionResult HeatMap()
+        public IActionResult HeatMap(int width=225)
         {
             // these dimensions are roughly the shape of utah
-            int width = 225;
-            int height = 275;
+            //int width = 225;
+            //int height = 275;
+            
+            // compute image height automatically (Utah is ~22% taller than it is wide)
+            int height = (int)(width * 1.222222f);
 
             // the UTM boundaries of Utah (roughly)
             float LatMin = 4095217.62f;
@@ -283,7 +286,7 @@ namespace CollisionsDB.Controllers
                         // auto set to black if outside utah bounds
                         if (relX > cornerX && relY > cornerY)
                         {
-                            image.SetPixel(x, height - y - 1, Color.Black);
+                            image.SetPixel(x, height - y - 1, Color.Transparent);
                         }
                     }
                 }
