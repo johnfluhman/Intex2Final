@@ -19,6 +19,7 @@
     <None Remove="Components\" />
     <None Remove="Views\Shared\Components\Counties\" />
     <None Remove="Microsoft.AspNetCore.Identity.UI" />
+    <None Remove="Views\Shared\Components\Severities\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.22" />
@@ -43,5 +44,6 @@
     <Folder Include="Views\Shared\Components\" />
     <Folder Include="Components\" />
     <Folder Include="Views\Shared\Components\Counties\" />
+    <Folder Include="Views\Shared\Components\Severities\" />
   </ItemGroup>
 </Project>

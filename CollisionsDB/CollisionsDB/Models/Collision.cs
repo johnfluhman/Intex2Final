@@ -13,7 +13,7 @@ namespace CollisionsDB
         [Key]
         [Required]
         public long CrashId { get; set; }
-        [Required]
+        [Required, RegularExpression(@"^\d+\/\d+\/\d{4}\s\d+\:\d+", ErrorMessage = "Please enter date in the following format: M/DD/YYYY HH:MM")]
         public string CrashDatetime { get; set; }
         public int? Route { get; set; }
         public double? Milepoint { get; set; }

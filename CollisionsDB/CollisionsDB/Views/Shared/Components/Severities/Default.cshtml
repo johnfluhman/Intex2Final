@@ -1,0 +1,13 @@
+﻿@{
+}
+
+@model IEnumerable<int>
+
+<div class="d-grid gap-2">
+    <a asp-controller="Home" asp-action="Summary" asp-route-severity="" asp-route-pageNum="1" class="btn btn-outline-secondary">View All</a>
+
+    @foreach (int s in Model)
+    {
+        <a asp-controller="Home" asp-action="Summary" asp-route-severity="@s" asp-route-pageNum="1" class="btn @(ViewBag.SelectedSeverity == s ? "btn-primary" : "btn-outline-secondary")">@s</a>
+    }
+</div>
