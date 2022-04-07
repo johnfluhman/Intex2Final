@@ -18,7 +18,25 @@ namespace CollisionsDB.Models
         public bool TeenageDriverInvolved { get; set;  }
         public bool NightDarkCondition { get; set; }
 
-        public float BoolToFloat(bool input)
+        // converts collision object into CrashDataInput for the ML
+        public static CrashDataInput CollisionToMLInput(Collision collision)
+        {
+            return new CrashDataInput
+            {
+                Milepoint = (float)collision.Milepoint,
+                LatUtmY = (float)collision.LatUtmY,
+                LongUtmX = (float)collision.LongUtmX,
+                // convert int to bool
+                PedestrianInvolved = collision.PedestrianInvolved < 1 ? false : true,
+                BicyclistInvolved = collision.BicyclistInvolved < 1 ? false : true,
+                MotorcycleInvolved = collision.MotorcycleInvolved < 1 ? false : true,
+                OverturnRollover = collision.OverturnRollover < 1 ? false : true,
+                TeenageDriverInvolved = collision.TeenageDriverInvolved < 1 ? false : true,
+                NightDarkCondition = collision.NightDarkCondition < 1 ? false : true,
+            };
+        }
+
+        public static float BoolToFloat(bool input)
         {
             if(input == true)
             {
