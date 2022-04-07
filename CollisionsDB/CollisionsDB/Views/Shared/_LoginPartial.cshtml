@@ -3,25 +3,27 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav">
+<!--<ul class="navbar-nav">-->
+<ul class="list-inline mb0 links">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
+        <!--<li class="nav-item">-->
+        <li class="list-inline-item">
             <a id="manage" class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
         </li>
-        <li class="nav-item">
+        <li class="list-inline-item">
             <a class="nav-link text-light" asp-controller="Account" asp-action="Form">Report Collision</a>
         </li>
-        <li class="nav-item">
+        <li class="list-inline-item">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button id="logout" type="submit" class="btn btn-sm btn-primary nav-link text-light">Logout</button>
+                <button id="logout" type="submit" class="btn-login btn-primary nav-link text-light">Logout</button>
             </form>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <a class="btn btn-sm btn-primary nav-link text-light" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="btn-login btn-primary nav-link text-light" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </li>
     }
 </ul>

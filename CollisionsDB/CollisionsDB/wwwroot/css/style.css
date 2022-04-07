@@ -3093,7 +3093,9 @@ Cards style
 Top bar style
 */
 .top-bar {
-  padding-top: 5px; }
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
   .top-bar.light {
     background-color: rgba(71, 130, 211, 0.02); }
   .top-bar .list-inline .list-inline-item {
@@ -3593,7 +3595,7 @@ Footer styles
 .footer-bottomAlt {
   padding: 15px 0;
   padding-top: 20px;
-  background-color: #000; }
+  background-color: #141414; }
   .footer-bottomAlt span {
     display: block;
     text-align: right; }
