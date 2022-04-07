@@ -218,6 +218,16 @@ namespace CollisionsDB.Controllers
 
         public IActionResult Analytics()
         {
+            // get a sum of all crashes by type for most recent year in dataset
+            string year = "2019";
+            Dictionary<int, int> numCrashes = new Dictionary<int, int>();
+            for(int i = 1; i <= 5; i++)
+            {
+                // kinda hacky but it works
+                numCrashes[i] = repo.Collisions.Where(c => c.CrashDatetime.Contains("/" + year)).Count(c => c.CrashSeverityId == i);
+            }
+            ViewBag.NumCrashes = numCrashes;
+            ViewBag.CrashSeverities = repo.CrashSeverities.ToList<CrashSeverity>();
             return View();
         }
 
