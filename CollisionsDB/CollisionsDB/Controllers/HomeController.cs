@@ -35,14 +35,14 @@ namespace CollisionsDB.Controllers
         }
 
         [HttpGet]
-        public IActionResult Summary(string county, int severity, int pageNum = 1)
+        public IActionResult Summary(int pageNum = 1)
         {
             int pageSize = 100;
 
             var x = new CollisionsViewModel
             {
                 Collisions = repo.Collisions
-                    .Where(c => c.County.CountyName == county || county == null)
+                    //.Where(c => c.Category == category || category == null)
                     .Include(c => c.City)
                     .Include(c => c.County)
                     .OrderBy(c => c.CrashId)
@@ -98,8 +98,11 @@ namespace CollisionsDB.Controllers
             // predict what the crash severity SHOULD have been
             CrashDataInput crashMLInput = CrashDataInput.CollisionToMLInput(crash);
             float predictedSeverity = GetSeverityPrediction(crashMLInput).PredictedValue;
+            float roundedPrediction = (float)Math.Round(predictedSeverity);
             float actualSeverity = crash.CrashSeverityId;
             float severityDifferencePercentage = actualSeverity / predictedSeverity;
+            ViewBag.PredictedSeverity = predictedSeverity;
+            ViewBag.RoundedPrediction = roundedPrediction;
             ViewBag.SeverityDifference = severityDifferencePercentage;
 
             // if this crash happened during the daytime, the severity would have decreased by 17%
