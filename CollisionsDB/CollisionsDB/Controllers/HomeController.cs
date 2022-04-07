@@ -45,7 +45,7 @@ namespace CollisionsDB.Controllers
                     .Where(c => c.County.CountyName == county || county == null)
                     .Include(c => c.City)
                     .Include(c => c.County)
-                    .OrderBy(c => c.CrashId)
+                    .OrderByDescending(c => c.CrashId)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
 

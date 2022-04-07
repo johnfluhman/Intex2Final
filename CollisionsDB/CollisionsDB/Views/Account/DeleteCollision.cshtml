@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Delete Confirmation";
+}
+
+@model Collision
+
+<h1>Are you sure you want to delete?</h1><br />
+<form method="post">
+    <input type="hidden" asp-for="CrashId" />
+    <button type="submit">Delete Forever</button>
+</form>
+<a asp-controller="Home" asp-action="Summary" class="btn btn-secondary">Cancel</a>
