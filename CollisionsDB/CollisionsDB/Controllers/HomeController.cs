@@ -42,7 +42,7 @@ namespace CollisionsDB.Controllers
             var x = new CollisionsViewModel
             {
                 Collisions = repo.Collisions
-                    //.Where(c => c.Category == category || category == null)
+                    .Where(c => c.County.CountyName == county || county == null)
                     .Include(c => c.City)
                     .Include(c => c.County)
                     .OrderBy(c => c.CrashId)
@@ -52,7 +52,9 @@ namespace CollisionsDB.Controllers
                 PageInfo = new PageInfo
                 {
                     TotalNumCrashes =
-                        (repo.Collisions.Count()),
+                        (county == null
+                            ? repo.Collisions.Count()
+                            : repo.Collisions.Where(x => x.County.CountyName == county).Count()),
                     CrashesPerPage = pageSize,
                     CurrentPage = pageNum
                 }
