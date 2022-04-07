@@ -10,6 +10,11 @@ using CollisionsDB.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
+using System.Drawing;
+using System.Net.Http;
+using System.IO;
+using System.Net;
+using System.Net.Http.Headers;
 
 namespace CollisionsDB.Controllers
 {
@@ -207,6 +212,87 @@ namespace CollisionsDB.Controllers
             }
 
             return reducers;
+        }
+
+        public IActionResult Analytics()
+        {
+            return View();
+        }
+
+
+        // returns an image that shows how the ML model converts location into severity
+        public IActionResult HeatMap()
+        {
+            // these dimensions are roughly the shape of utah
+            int width = 225;
+            int height = 275;
+
+            // the UTM boundaries of Utah (roughly)
+            float LatMin = 4095217.62f;
+            float LatMax = 4651314.56f;
+            float LongMin = 234453.51f;
+            float LongMax = 672162f;
+
+            // the corner of utah begins at around the 58% mark width and 80% height
+            float cornerX = .58f;
+            float cornerY = .8f;
+
+            float UtahWidth = LongMax - LongMin;
+            float UtahHeight = LatMax - LatMin;
+
+            CrashDataInput input = new CrashDataInput
+            {
+                LatUtmY = 0,
+                LongUtmX = 0,
+                // average milepoint in the data
+                Milepoint = 70.34f,
+                BicyclistInvolved = false,
+                OverturnRollover = false,
+                NightDarkCondition = false,
+                TeenageDriverInvolved = false,
+                MotorcycleInvolved = false,
+                PedestrianInvolved = false,
+            };
+
+            using (Bitmap image = new Bitmap(width, height))
+            {
+                for(int x = 0; x < width; x++)
+                {
+                    for(int y = 0; y < height; y++)
+                    {
+                        // convert x and y into 0-1 range
+                        float relX = (float)x / width;
+                        float relY = (float)y / height;
+
+                        // convert the 0-1 range into UTM units
+                        float lon = UtahWidth * relX + LongMin;
+                        float lat = UtahHeight * relY + LatMin;
+
+                        input.LongUtmX = lon;
+                        input.LatUtmY = lat;
+                        float brightness = GetSeverityPrediction(input).PredictedValue;
+                        // convert brightness from 1-5 to 0-255
+                        brightness = (brightness - 1) * 64;
+                        // scale brightness
+                        brightness *= brightness / 4;
+                        // clamp
+                        if (brightness > 255) brightness = 255;
+
+                        image.SetPixel(x, height-y-1, Color.FromArgb(255, (int)brightness, 0, 0));
+
+                        // auto set to black if outside utah bounds
+                        if (relX > cornerX && relY > cornerY)
+                        {
+                            image.SetPixel(x, height - y - 1, Color.Black);
+                        }
+                    }
+                }
+                MemoryStream ms = new MemoryStream();
+
+                image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+
+                return File(ms.ToArray(), "image/png");
+            }
         }
     }
 }
