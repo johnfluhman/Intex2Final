@@ -112,7 +112,9 @@
                     }
                 </tbody>
             </table>
+          <h3>Actual Severity: @Model.CrashSeverityId</h3>
+          <h3>Predicted Severity: @ViewBag.RoundedPrediction</h3>
+          <h3>Percent difference between predicted and actual severity: @(ViewBag.SeverityDifference)</h3>
           </div>
         </div>
     </div>
-<h3>Percent difference between predicted and actual severity: @(ViewBag.SeverityDifference)</h3>
