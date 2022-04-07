@@ -20,6 +20,7 @@
     <None Remove="Views\Shared\Components\Counties\" />
     <None Remove="Microsoft.AspNetCore.Identity.UI" />
     <None Remove="Views\Shared\Components\Severities\" />
+    <None Remove="Views\Shared\Components\AccountCounties\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.22" />
@@ -45,6 +46,7 @@
     <Folder Include="Components\" />
     <Folder Include="Views\Shared\Components\Counties\" />
     <Folder Include="Views\Shared\Components\Severities\" />
+    <Folder Include="Views\Shared\Components\AccountCounties\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\bower\font-awesome\.gitignore" />

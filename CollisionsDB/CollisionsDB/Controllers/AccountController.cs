@@ -27,62 +27,36 @@ namespace CollisionsDB.Controllers
         public AccountController(ICollisionRepository temp)
         {
             repo = temp;
-        }
-
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult Summary(int pageNum = 1)
-        {
-            int pageSize = 100;
-
-            var x = new CollisionsViewModel
-            {
-                Collisions = repo.Collisions
-                    //.Where(c => c.Category == category || category == null)
-                    .Include(c => c.City)
-                    .Include(c => c.County)
-                    .OrderBy(c => c.CrashId)
-                    .Skip((pageNum - 1) * pageSize)
-                    .Take(pageSize),
-
-                PageInfo = new PageInfo
-                {
-                    TotalNumCrashes =
-                        (repo.Collisions.Count()),
-                    CrashesPerPage = pageSize,
-                    CurrentPage = pageNum
-                }
-
-            };
-
-            return View(x);
-        }
-
+        }        
+      
         [HttpGet]
         public IActionResult Form()
         {
-            ViewBag.Cities = repo.Cities.ToList().OrderBy(x => x.CityName);
-            ViewBag.Counties = repo.Counties.ToList().OrderBy(x => x.CountyName);
+            ViewBag.Cities = repo.Cities.ToList().Distinct().OrderBy(x => x.CityName);
+            ViewBag.Counties = repo.Counties.ToList().Distinct().OrderBy(x => x.CountyName);
             return View();
         }
 
         [HttpPost]
         public IActionResult Form(Collision c)
         {
-            repo.AddCollision(c);
-            return RedirectToAction("Summary");
+            if (ModelState.IsValid)
+            {
+                repo.AddCollision(c);
+                return RedirectToAction("Summary", "Home");
+            }
+            else
+            {
+                return View(c);
+            }
         }
 
         [HttpGet]
         public IActionResult EditCollision(int collisionid)
         {
-            ViewBag.Cities = repo.Cities.ToList().OrderBy(x => x.CityName);
-            ViewBag.Counties = repo.Counties.ToList().OrderBy(x => x.CountyName);
+            ViewBag.Cities = repo.Cities.ToList().Distinct().OrderBy(x => x.CityName);
+            ViewBag.Counties = repo.Counties.ToList().Distinct().OrderBy(x => x.CountyName);
+            ViewBag.EditMode = true;
             var edit = repo.Collisions.Single(x => x.CrashId == collisionid);
             return View("Form", edit);
         }
@@ -90,8 +64,16 @@ namespace CollisionsDB.Controllers
         [HttpPost]
         public IActionResult EditCollision(Collision c)
         {
-            repo.EditCollision(c);
-            return RedirectToAction("Summary");
+            if (ModelState.IsValid)
+            {
+                repo.EditCollision(c);
+                return RedirectToAction("Summary", "Home");
+            }
+            else
+            {
+                return View(c);
+            }
+
         }
 
         [HttpGet]
@@ -105,7 +87,7 @@ namespace CollisionsDB.Controllers
         public IActionResult DeleteCollision(Collision c)
         {
             repo.DeleteCollision(c);
-            return RedirectToAction("Summary");
+            return RedirectToAction("Summary", "Home");
         }
 
         public IActionResult TestRestricted()

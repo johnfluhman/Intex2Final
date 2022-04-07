@@ -24,21 +24,21 @@
     <label asp-for="MainRoadName"><strong>Name of Road Where Collision Occurred:</strong></label><br />
     <input asp-for="MainRoadName" /><br />
 
-    <label asp-for="City.CityName"><strong>City Where Collision Occurred:</strong></label><br />
-    <select asp-for="City.CityName">
+    <label asp-for="CityId"><strong>City Where Collision Occurred:</strong></label><br />
+    <select asp-for="CityId">
         <option value="">Select a City</option>
         @foreach (City c in ViewBag.Cities)
         {
-            <option value="@c.CityName">@c.CityName</option>
+            <option value="@c.CityId">@c.CityName</option>
         }
     </select><br />
 
-    <label asp-for="County.CountyName"><strong>County Where Collision Occurred:</strong></label><br />
-    <select asp-for="County.CountyName">
+    <label asp-for="CountyId"><strong>County Where Collision Occurred:</strong></label><br />
+    <select asp-for="CountyId">
         <option value="">Select a County</option>
         @foreach (County c in ViewBag.Counties)
         {
-            <option value="@c.CountyName">@c.CountyName</option>
+            <option value="@c.CountyId">@c.CountyName</option>
         }
     </select><br />
 
@@ -83,7 +83,7 @@
     </select><br />
 
     <label asp-for="Unrestrained"><strong>Was There Anyone Unrestrained:</strong></label><br />
-    <select asp-for="Unrestrained">       
+    <select asp-for="Unrestrained">
         <option value="0">False</option>
         <option value="1">True</option>
     </select><br />
@@ -166,6 +166,9 @@
         <option value="1">True</option>
     </select><br />
 
+
+    @if (ViewBag.EditMode)
+    {<input type="hidden" asp-for="CrashId" />}
     <!--Submit Button-->
     <button type="submit">Submit Form</button>
 </form>
