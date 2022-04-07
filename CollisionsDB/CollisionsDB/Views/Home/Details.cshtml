@@ -1,100 +1,118 @@
-﻿@{
+@{
     ViewData["Title"] = "Collision Details";
 }
 
 @model Collision
 
-<h3 class="bg-info text-white text-center p-1">Details</h3>
+    <!--Hero Section-->
+    <div class="page-titles-img title-space-lg bg-parallax parallax-overlay" data-jarallax='{"speed": 0.2}' style='background-image: url("images/bg8.jpg")'>
+        <div class="container">
+            <div class="row">
+                <div class=" col-md-8 ml-auto mr-auto">
+                    <h1 class='text-uppercase'>Collision Details</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='container-fluid no-padding mb40'>
+        <div class='row no-margin'>
+            <div class='col-lg-8  mr-auto ml-auto'>
+                <br /><br />
+                <div class="title-heading1 mb30">
+                    <h3>Details for Collision ID: @ViewBag.CrashId</h3>
+                </div>
 
-<table class="table table-sm table-bordered table-striped">
-    <tbody>
-        <tr><th>Collision ID:</th><td>@Model.CrashId</td></tr>
-        <tr><th>Collision Date:</th><td>@Model.CrashDatetime</td></tr>
-        <tr><th>Collision Route:</th><td>@Model.Route</td></tr>
-        <tr><th>Collision Milepoint:</th><td>@Model.Milepoint</td></tr>
-        <tr><th>Latitude (UTM):</th><td>@Model.LatUtmY</td></tr>
-        <tr><th>Longitude (UTM:</th><td>@Model.LongUtmX</td></tr>
-        <tr><th>Collision Road Name:</th><td>@Model.MainRoadName</td></tr>
-        <tr><th>Collision City:</th><td>@Model.City.CityName</td></tr>
-        <tr><th>Collision County:</th><td>@Model.County.CountyName</td></tr>
-        @if (Model.CrashSeverityId == 5) {<tr><th>Crash Severity:</th><td>Fatal</td></tr>}
-        @if (Model.CrashSeverityId == 4) {<tr><th>Crash Severity:</th><td>Suspected Major Injury</td></tr>}
-        @if (Model.CrashSeverityId == 3) {<tr><th>Crash Severity:</th><td>Suspect Minor Injury</td></tr>}
-        @if (Model.CrashSeverityId == 2) {<tr><th>Crash Severity:</th><td>Possible Injury</td></tr>}
-        @if (Model.CrashSeverityId == 1) {<tr><th>Crash Severity:</th><td>No Injury</td></tr>}
-        @if (Model.WorkZoneRelated == 1)
-        {
-            <tr><th>Work Zone Related:</th><td>True</td></tr>
-        }
-        @if (Model.PedestrianInvolved == 1)
-        {
-            <tr><th>Pedestrian Involved:</th><td>True</td></tr>
-        }
-        @if (Model.BicyclistInvolved == 1)
-        {
-            <tr><th>Bicyclist Involved:</th><td>True</td></tr>
-        }
-        @if (Model.MotorcycleInvolved == 1)
-        {
-            <tr><th>Motorcycle Involved:</th><td>True</td></tr>
-        }
-        @if (Model.ImproperRestraint == 1)
-        {
-            <tr><th>Improper Restraint:</th><td>True</td></tr>
-        }
-        @if (Model.Unrestrained == 1)
-        {
-            <tr><th>Unrestrained:</th><td>True</td></tr>
-        }
-        @if (Model.Dui == 1)
-        {
-            <tr><th>DUI:</th><td>True</td></tr>
-        }
-        @if (Model.IntersectionRelated == 1)
-        {
-            <tr><th>Intersection Related:</th><td>True</td></tr>
-        }
-        @if (Model.WildAnimalRelated == 1)
-        {
-            <tr><th>Wild Animal Related:</th><td>True</td></tr>
-        }
-        @if (Model.DomesticAnimalRelated == 1)
-        {
-            <tr><th>Domestic Animal Related:</th><td>True</td></tr>
-        }
-        @if (Model.OverturnRollover == 1)
-        {
-            <tr><th>Overturn Rollover:</th><td>True</td></tr>
-        }
-        @if (Model.CommercialMotorVehInvolved == 1)
-        {
-            <tr><th>Commercial Vehicle Invovled:</th><td>True</td></tr>
-        }       
-        @if (Model.OlderDriverInvolved == 1)
-        {
-            <tr><th>Older Driver Involved:</th><td>True</td></tr>
-        }
-        @if (Model.NightDarkCondition == 1)
-        {
-            <tr><th>Collision Occurred at Night:</th><td>True</td></tr>
-        }
-        @if (Model.SingleVehicle == 1)
-        {
-            <tr><th>Single Vehicle:</th><td>True</td></tr>
-        }
-        @if (Model.DistractedDriving == 1)
-        {
-            <tr><th>Driver Distracted:</th><td>True</td></tr>
-        }
-        @if (Model.DrowsyDriving == 1)
-        {
-            <tr><th>Driver Drowsy:</th><td>True</td></tr>
-        }
-        @if (Model.RoadwayDeparture == 1)
-        {
-            <tr><th>Roadway Departure:</th><td>True</td></tr>
-        }
-    </tbody>
-</table>
-
+            <table class="table table-sm table-bordered table-striped">
+                <tbody>
+                    <tr><th>Collision ID:</th><td>@Model.CrashId</td></tr>
+                    <tr><th>Collision Date:</th><td>@Model.CrashDatetime</td></tr>
+                    <tr><th>Collision Route:</th><td>@Model.Route</td></tr>
+                    <tr><th>Collision Milepoint:</th><td>@Model.Milepoint</td></tr>
+                    <tr><th>Latitude (UTM):</th><td>@Model.LatUtmY</td></tr>
+                    <tr><th>Longitude (UTM:</th><td>@Model.LongUtmX</td></tr>
+                    <tr><th>Collision Road Name:</th><td>@Model.MainRoadName</td></tr>
+                    <tr><th>Collision City:</th><td>@Model.City.CityName</td></tr>
+                    <tr><th>Collision County:</th><td>@Model.County.CountyName</td></tr>
+                    @if (Model.CrashSeverityId == 5) {<tr><th>Crash Severity:</th><td>Fatal</td></tr>}
+                    @if (Model.CrashSeverityId == 4) {<tr><th>Crash Severity:</th><td>Suspected Major Injury</td></tr>}
+                    @if (Model.CrashSeverityId == 3) {<tr><th>Crash Severity:</th><td>Suspect Minor Injury</td></tr>}
+                    @if (Model.CrashSeverityId == 2) {<tr><th>Crash Severity:</th><td>Possible Injury</td></tr>}
+                    @if (Model.CrashSeverityId == 1) {<tr><th>Crash Severity:</th><td>No Injury</td></tr>}
+                    @if (Model.WorkZoneRelated == 1)
+                    {
+                        <tr><th>Work Zone Related:</th><td>True</td></tr>
+                    }
+                    @if (Model.PedestrianInvolved == 1)
+                    {
+                        <tr><th>Pedestrian Involved:</th><td>True</td></tr>
+                    }
+                    @if (Model.BicyclistInvolved == 1)
+                    {
+                        <tr><th>Bicyclist Involved:</th><td>True</td></tr>
+                    }
+                    @if (Model.MotorcycleInvolved == 1)
+                    {
+                        <tr><th>Motorcycle Involved:</th><td>True</td></tr>
+                    }
+                    @if (Model.ImproperRestraint == 1)
+                    {
+                        <tr><th>Improper Restraint:</th><td>True</td></tr>
+                    }
+                    @if (Model.Unrestrained == 1)
+                    {
+                        <tr><th>Unrestrained:</th><td>True</td></tr>
+                    }
+                    @if (Model.Dui == 1)
+                    {
+                        <tr><th>DUI:</th><td>True</td></tr>
+                    }
+                    @if (Model.IntersectionRelated == 1)
+                    {
+                        <tr><th>Intersection Related:</th><td>True</td></tr>
+                    }
+                    @if (Model.WildAnimalRelated == 1)
+                    {
+                        <tr><th>Wild Animal Related:</th><td>True</td></tr>
+                    }
+                    @if (Model.DomesticAnimalRelated == 1)
+                    {
+                        <tr><th>Domestic Animal Related:</th><td>True</td></tr>
+                    }
+                    @if (Model.OverturnRollover == 1)
+                    {
+                        <tr><th>Overturn Rollover:</th><td>True</td></tr>
+                    }
+                    @if (Model.CommercialMotorVehInvolved == 1)
+                    {
+                        <tr><th>Commercial Vehicle Invovled:</th><td>True</td></tr>
+                    }       
+                    @if (Model.OlderDriverInvolved == 1)
+                    {
+                        <tr><th>Older Driver Involved:</th><td>True</td></tr>
+                    }
+                    @if (Model.NightDarkCondition == 1)
+                    {
+                        <tr><th>Collision Occurred at Night:</th><td>True</td></tr>
+                    }
+                    @if (Model.SingleVehicle == 1)
+                    {
+                        <tr><th>Single Vehicle:</th><td>True</td></tr>
+                    }
+                    @if (Model.DistractedDriving == 1)
+                    {
+                        <tr><th>Driver Distracted:</th><td>True</td></tr>
+                    }
+                    @if (Model.DrowsyDriving == 1)
+                    {
+                        <tr><th>Driver Drowsy:</th><td>True</td></tr>
+                    }
+                    @if (Model.RoadwayDeparture == 1)
+                    {
+                        <tr><th>Roadway Departure:</th><td>True</td></tr>
+                    }
+                </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
 <h3>Percent difference between predicted and actual severity: @(ViewBag.SeverityDifference)</h3>

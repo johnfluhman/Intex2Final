@@ -5,70 +5,76 @@
 }
 
 @model CrashDataInput
-
-<h1>@(ViewBag.Result != null ? "Predicted Crash Severity: " + ViewBag.Result.PredictedValue : "")</h1>
-
-<form method="post">
-    <div class="text-danger" asp-validation-summary="All"></div>
-
-    <div class="form-group">
-        <label asp-for="Milepoint">Milepoint</label>
-        <input asp-for="Milepoint" class="form-control" />
+<!--Hero Section-->
+<div class="page-titles-img title-space-lg bg-parallax parallax-overlay" data-jarallax='{"speed": 0.2}' style='background-image: url("images/bg8.jpg")'>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-8 ml-auto mr-auto">
+                <h1 class='text-uppercase'>Collision Details</h1>
+            </div>
+        </div>
     </div>
+</div>
+<div class='container-fluid no-padding mb40'>
+    <div class='row no-margin'>
+        <div class='col-lg-8  mr-auto ml-auto'>
+            <br /><br />
+            <div class="title-heading1 mb30">
+                <h3>Make a Crash Severity Prediction by Filling out the Form Below</h3>
+                <h2><span class="badge badge-info">@(ViewBag.Result != null ? "Predicted Crash Severity: " + ViewBag.Result.PredictedValue : "")</span></h2>
+            </div>
+            <div class="col-lg-7 mr-auto ml-auto calculator">
+            <form method="post">
+                <div class="text-danger" asp-validation-summary="All"></div>
 
-    <div class="form-group">
-        <label asp-for="LatUtmY">Latitude</label>
-        <input asp-for="LatUtmY" class="form-control" />
+                <div class="form-group">
+                    <label asp-for="Milepoint"><b>Milepoint</b></label>
+                    <input asp-for="Milepoint" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="LatUtmY"><b>Latitude</b></label>
+                    <input asp-for="LatUtmY" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="LongUtmX"><b>Longitude</b></label>
+                    <input asp-for="LongUtmX" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="PedestrianInvolved"><b>Pedestrian Involved?</b></label>
+                    <input type="checkbox" asp-for="PedestrianInvolved" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="BicyclistInvolved"><b>Bicyclist Involved?</b></label>
+                    <input type="checkbox" asp-for="BicyclistInvolved" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="MotorcycleInvolved"><b>Motorcycle Involved?</b></label>
+                    <input type="checkbox" asp-for="MotorcycleInvolved" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="OverturnRollover"><b>Vehicle Overturned/Rolled Over?</b></label>
+                    <input type="checkbox" asp-for="OverturnRollover" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="TeenageDriverInvolved"><b>Teenage Driver Involved?</b></label>
+                    <input type="checkbox" asp-for="TeenageDriverInvolved" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="NightDarkCondition"><b>Was it Dark Out?</b></label>
+                    <input type="checkbox" asp-for="NightDarkCondition" class="form-control" />
+                </div>
+
+                <button class="btn btn-primary btn-sm" type="submit">Make Prediction</button>
+            </form>
+                </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="LongUtmX">
-            Longitude
-            <input asp-for="LongUtmX" class="form-control" />
-        </label>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="PedestrianInvolved">
-            Pedestrian Involved?
-            <input type="checkbox" asp-for="PedestrianInvolved" class="form-control" />
-        </label>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="BicyclistInvolved">
-            Bicyclist Involved?
-            <input type="checkbox" asp-for="BicyclistInvolved" class="form-control" />
-        </label>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="MotorcycleInvolved">
-            Motorcycle Involved?
-            <input type="checkbox" asp-for="MotorcycleInvolved" class="form-control" />
-        </label>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="OverturnRollover">
-            Vehicle Overturned?
-            <input type="checkbox" asp-for="OverturnRollover" class="form-control" />
-        </label>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="TeenageDriverInvolved">
-            Teenage Driver Involved?
-            <input type="checkbox" asp-for="TeenageDriverInvolved" class="form-control" />
-        </label>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="NightDarkCondition">
-            Nightime?
-            <input type="checkbox" asp-for="NightDarkCondition" class="form-control" />
-        </label>
-    </div>
-
-    <button type="submit">Predict</button>
-</form>
+</div>
