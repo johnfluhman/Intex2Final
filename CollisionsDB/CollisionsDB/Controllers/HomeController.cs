@@ -40,7 +40,7 @@ namespace CollisionsDB.Controllers
         }
 
         [HttpGet]
-        public IActionResult Summary(int pageNum = 1)
+        public IActionResult Summary(string county, int pageNum = 1)
         {
             int pageSize = 100;
 
