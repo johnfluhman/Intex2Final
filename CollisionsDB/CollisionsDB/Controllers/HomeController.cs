@@ -35,7 +35,7 @@ namespace CollisionsDB.Controllers
         }
 
         [HttpGet]
-        public IActionResult Summary(string county, int pageNum = 1)
+        public IActionResult Summary(int pageNum = 1)
         {
             int pageSize = 100;
 
@@ -93,22 +93,48 @@ namespace CollisionsDB.Controllers
             var crash = repo.Collisions
                 .Include(c => c.City)
                 .Include(c => c.County)
+                .Include( c => c.CrashSeverity)
                 .FirstOrDefault(x => x.CrashId == collisionid);
 
 
-            ViewBag.CrashId = collisionid;
-            
             // predict what the crash severity SHOULD have been
             CrashDataInput crashMLInput = CrashDataInput.CollisionToMLInput(crash);
-            float predictedSeverity = GetSeverityPrediction(crashMLInput).PredictedValue;
-            float roundedPrediction = (float)Math.Round(predictedSeverity);
-            float actualSeverity = crash.CrashSeverityId;
-            float severityDifferencePercentage = actualSeverity / predictedSeverity;
-            ViewBag.PredictedSeverity = predictedSeverity;
-            ViewBag.RoundedPrediction = roundedPrediction;
-            ViewBag.SeverityDifference = severityDifferencePercentage;
+            float predictedSeverityValue = GetSeverityPrediction(crashMLInput).PredictedValue;
+            int roundedPrediction = (int)Math.Round(predictedSeverityValue);
+            CrashSeverity predictedCrashSeverity = repo.CrashSeverities.Where(cs => cs.CrashSeverityId == roundedPrediction).FirstOrDefault();
+            ViewBag.ActualSeverity = crash.CrashSeverityId.ToString() + " - " + crash.CrashSeverity.Description;
+            ViewBag.PredictedSeverity = predictedSeverityValue;
+            ViewBag.RoundedPrediction = roundedPrediction.ToString() + " - " + predictedCrashSeverity.Description;
+
+            string comparison;
+            string comparisonTextClass;
+            // generate a line of text that comments on the prediction vs actual
+            if(roundedPrediction > crash.CrashSeverityId)
+            {
+                comparison = "less severe";
+                comparisonTextClass = "success";
+            }
+            else if(roundedPrediction < crash.CrashSeverityId)
+            {
+                comparison = "more severe";
+                comparisonTextClass = "danger";
+            }
+            else
+            {
+                comparison = "equally severe";
+                comparisonTextClass = "info";
+            }
+            // add the word "much" if the difference is big
+            if(Math.Abs(roundedPrediction - crash.CrashSeverityId) >= 2)
+            {
+                comparison = "much " + comparison;
+            }
+            ViewBag.ComparisonTextClass = comparisonTextClass;
+            ViewBag.SeverityComparison = comparison;
+
 
             // if this crash happened during the daytime, the severity would have decreased by 17%
+
             return View("Details", crash);
         }
     }

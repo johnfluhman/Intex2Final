@@ -19,7 +19,7 @@
             <div class='col-lg-8  mr-auto ml-auto'>
                 <br /><br />
                 <div class="title-heading1 mb30">
-                    <h3>Details for Collision ID: @ViewBag.CrashId</h3>
+                    <h3>Details for Collision ID: @Model.CrashId</h3>
                 </div>
 
             <table class="table table-sm table-bordered table-striped">
@@ -112,9 +112,33 @@
                     }
                 </tbody>
             </table>
-          <h3>Actual Severity: @Model.CrashSeverityId</h3>
-          <h3>Predicted Severity: @ViewBag.RoundedPrediction</h3>
-          <h3>Percent difference between predicted and actual severity: @(ViewBag.SeverityDifference)</h3>
+
+            <table class="table table-sm table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            <h2>Predictive Data Analytics</h2>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Actual Severity:</th>
+                        <td>@ViewBag.ActualSeverity</td>
+                    </tr>
+                    <tr>
+                        <th>Predicted Severity:</th>
+                        <td>@ViewBag.RoundedPrediction</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h3>This crash was
+                            <span class="font-weight-bold text-@ViewBag.ComparisonTextClass">@ViewBag.SeverityComparison</span>
+                            @(ViewBag.ActualSeverity == ViewBag.RoundedPrediction ? "as" : "than") most crashes of this type.</h3>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
           </div>
         </div>
     </div>
