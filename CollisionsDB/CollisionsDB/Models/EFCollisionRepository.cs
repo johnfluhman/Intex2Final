@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace CollisionsDB.Models
 {
@@ -31,6 +32,7 @@ namespace CollisionsDB.Models
         public void EditCollision(Collision collision)
         {
             _context.collisions.Update(collision);
+            _context.Entry(collision).State = EntityState.Modified;
             _context.SaveChanges();
         }
     }
