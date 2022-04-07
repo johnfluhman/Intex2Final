@@ -23,6 +23,7 @@
     <None Remove="Views\Shared\Components\AccountCounties\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AWSSDK.SecretsManager" Version="3.7.2.26" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.22">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
