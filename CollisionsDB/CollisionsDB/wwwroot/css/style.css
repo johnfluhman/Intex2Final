@@ -2691,6 +2691,15 @@ Promo boxes
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(../images/driver_in_car.jpg) !important;
 }
 
+.bg-parallax-left {
+    background-size: cover!important;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    position: relative;
+    overflow: hidden;
+    background-image: url(../images/traffic.jpg) !important;
+}
+
 /*
 Revolution slider customization
 */

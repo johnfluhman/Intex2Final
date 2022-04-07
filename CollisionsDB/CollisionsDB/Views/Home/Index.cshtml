@@ -15,20 +15,20 @@
                                     <li class="text-capitalize" data-out-effect="fadeOut" data-in-effect="fadeIn">Intex Winter 2022</li>
                                     <li class="text-capitalize" data-out-effect="fadeOut" data-in-effect="fadeIn">Lets Yeet Into the Data</li>
                                 </ul>
-                            </div>@*/.tlt*@
+                            </div><!--/.tlt-->
                             <p class="lead text-white-gray">
                                 Explore More About Utah Collisions
                             </p>
-                            <a href="#" class="btn btn-rounded btn-white-outline">Learn More</a>
+                            <a href="#content" class="btn btn-rounded btn-white-outline">Learn More</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+</div>
 
 <!--3 Column content-->
-<div class="container pt60 pb30">
+<div id="content" class="container pt60 pb30">
     <div class="row">
         <div class="col-lg-4 mb30">
             <img src="~/images/website_generic.jpg" class="img-fluid mb20" />
@@ -51,6 +51,53 @@
             <p>
                 Using Machine Learning, we have created a model of the top indicators to predict how severe a crash will be.
             </p>
+        </div>
+    </div>
+</div>
+
+<!--Half Image Area-->
+<div class="half-image-content bg-faded">
+    <div class="content-img bg-parallax-left pos-left hidden-lg-down" data-jarallax='{"speed": 0.2}' style="background:">
+    </div>
+    <img src="../wwwroot/images/computerpeople.jpg" class="visible-lg-down img-fluid hidden-lg-up" alt="">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 ml-lg-auto pt70 pb70">
+                <h2 class="mb40">
+                    About The Project
+                </h2>
+                <div class="clearfix">
+                    <div class="media mb30 wow fadeInUp" data-wow-delay=".150ms">
+                        <div class="d-flex mr-3">
+                            <i class="fa fa-gears"></i>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="mt-0 mb10 text-capitalize">Machine Learning</h4>
+                            We've incorporated multiple machine learning mechanics into the website, including:
+                            <ul>
+                                <li>Regression Analysis</li>
+                                <li>Predictors</li>
+                                <li>Heat Maps</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="media mb30 wow fadeInUp" data-wow-delay=".250ms">
+                        <div class="d-flex mr-3">
+                            <i class=" fa fa-amazon"></i>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="mt-0 mb10 text-capitalize">AWS Features</h4>
+                            This website utilizes a variety of AWS Infrastructure including:
+                            <ul>
+                                <li>AWS RDS with a MySQL Database</li>
+                                <li>Route 53</li>
+                                <li>Elastic Beanstalk</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a asp-controller="Home" asp-action="Summary" class="btn btn-rounded btn-outline-primary">View Data</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
