@@ -34,6 +34,7 @@ namespace CollisionsDB.Controllers
         {
             ViewBag.Cities = repo.Cities.ToList().Distinct().OrderBy(x => x.CityName);
             ViewBag.Counties = repo.Counties.ToList().Distinct().OrderBy(x => x.CountyName);
+            ViewBag.EditMode = false;
             return View();
         }
 

@@ -10,22 +10,20 @@
 
 
     <!--CSS Stylesheets-->
-    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
-    @*<link rel="stylesheet" href="~/css/site.css" />*@
-    <link href="~/cubeportfolio/css/cubeportfolio.css" rel="stylesheet" />
+    <!--<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />-->
+    <!--<link href="~/cubeportfolio/css/cubeportfolio.css" rel="stylesheet" />-->
+    <link href="~/css/plugins/plugins.css" rel="stylesheet" />
     <link href="~/css/animate.css" rel="stylesheet" />
     <link href="~/css/style.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/css/plugins/plugins.css" rel="stylesheet" />
 
-
+    <!--Content Security Header -->
+    <!--<meta http-equiv="Content-Security-Policy"
+          content="default-src 'self'; child-src 'none'; script-src 'self'; img-src 'self'; style-src 'self' 'unsafe-inline';" />-->
 
     <!--Font Awesome Icons-->
     <script src="https://kit.fontawesome.com/2473e98242.js" crossorigin="anonymous"></script>
 
-    <!--Content Security Header -->
-    <meta http-equiv="Content-Security-Policy"
-          content="default-src 'self'; child-src 'none'; script-src 'self'; img-src 'self'; style-src 'self'" />
 </head>
 <body>
     <!--Preloader-->
@@ -35,7 +33,7 @@
 
     <!--Navigation Menu-->
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light navbar-transparent bg-faded nav-sticky">
+        <nav class="navbar navbar-expand-lg navbar-light navbar-transparent bg-faded nav-sticky nav-stick-top">
             <div class="container">
 
                 <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">Utah Collisions Analysis</a>
@@ -53,61 +51,61 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Calculator">Calculator</a>
-                        </li>                        
+                        </li>
                     </ul>
-                    @*<partial name="_LoginPartial" />*@
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
 
-        @RenderBody()
+    @RenderBody()
 
-        <partial name="_CookieConsentPartial" />
+    <partial name="_CookieConsentPartial" />
 
-        <!--Footer-->
-        <div class="footer-bottomAlt">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-7">
-                        <div class="clearfix">
-                            <a href="#" class="social-icon-sm si-dark si-facebook si-dark-round">
-                                <i class="fa fa-facebook"></i>
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                            <a href="#" class="social-icon-sm si-dark si-twitter si-dark-round">
-                                <i class="fa fa-twitter"></i>
-                                <i class="fa fa-twitter"></i>
-                            </a>
-                            <a href="#" class="social-icon-sm si-dark si-g-plus si-dark-round">
-                                <i class="fa fa-google-plus"></i>
-                                <i class="fa fa-google-plus"></i>
-                            </a>
-                            <a href="#" class="social-icon-sm si-dark si-skype si-dark-round">
-                                <i class="fa fa-skype"></i>
-                                <i class="fa fa-skype"></i>
-                            </a>
-                            <a href="#" class="social-icon-sm si-dark si-linkedin si-dark-round">
-                                <i class="fa fa-linkedin"></i>
-                                <i class="fa fa-linkedin"></i>
-                            </a>
-                        </div>
+    <!--Footer-->
+    <div class="footer-bottomAlt">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="clearfix">
+                        <a href="#" class="social-icon-sm si-dark si-facebook si-dark-round">
+                            <i class="fa fa-facebook"></i>
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-icon-sm si-dark si-twitter si-dark-round">
+                            <i class="fa fa-twitter"></i>
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon-sm si-dark si-g-plus si-dark-round">
+                            <i class="fa fa-google-plus"></i>
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                        <a href="#" class="social-icon-sm si-dark si-skype si-dark-round">
+                            <i class="fa fa-skype"></i>
+                            <i class="fa fa-skype"></i>
+                        </a>
+                        <a href="#" class="social-icon-sm si-dark si-linkedin si-dark-round">
+                            <i class="fa fa-linkedin"></i>
+                            <i class="fa fa-linkedin"></i>
+                        </a>
                     </div>
-                    <div class="col-lg-5">
-                        <span>&copy; Copyright 2022. <a asp-controller="Home" asp-action="Privacy">Privacy</a></span>
-                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <span>&copy; Copyright 2022. <a asp-controller="Home" asp-action="Privacy">Privacy</a></span>
                 </div>
             </div>
         </div>
-        <!--back to top-->
-        <a href="#" class="back-to-top hidden-xs-down" id="back-to-top"><i class="ti-angle-up"></i></a>
+    </div>
+    <!--back to top-->
+    <a href="#" class="back-to-top hidden-xs-down" id="back-to-top"><i class="ti-angle-up"></i></a>
 
     <!--Start of Javascript-->
+    <!--<script src="~/cubeportfolio/js/jquery.cubeportfolio.js"></script>-->
     <script src="~/js/plugins/plugins.js"></script>
     <script src="~/js/assan.custom.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/js/classie.js"></script>
-    <script src="~/cubeportfolio/js/jquery.cubeportfolio.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
