@@ -4,9 +4,12 @@
 
 @model Collision
 
-<h1>Are you sure you want to delete?</h1><br />
+<h1>Are you sure you want to the record for Crash ID @Model.CrashId?</h1>
+<br />
 <form method="post">
+    <button class="btn btn-danger btn-sm" type="submit">Delete Now</button>
+    <a asp-controller="Home" asp-action="Summary" class="btn btn-primary btn-sm">Cancel</a>
+
     <input type="hidden" asp-for="CrashId" />
-    <button type="submit">Delete Forever</button>
+
 </form>
-<a asp-controller="Home" asp-action="Summary" class="btn btn-secondary">Cancel</a>
