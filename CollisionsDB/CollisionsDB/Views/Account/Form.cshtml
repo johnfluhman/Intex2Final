@@ -83,7 +83,7 @@
     </select><br />
 
     <label asp-for="Unrestrained"><strong>Was There Anyone Unrestrained:</strong></label><br />
-    <select asp-for="Unrestrained">       
+    <select asp-for="Unrestrained">
         <option value="0">False</option>
         <option value="1">True</option>
     </select><br />
@@ -166,6 +166,9 @@
         <option value="1">True</option>
     </select><br />
 
+
+    @if (ViewBag.EditMode)
+    {<input type="hidden" asp-for="CrashId" />}
     <!--Submit Button-->
     <button type="submit">Submit Form</button>
 </form>
