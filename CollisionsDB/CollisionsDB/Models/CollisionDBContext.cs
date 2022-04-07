@@ -13,6 +13,7 @@ namespace CollisionsDB.Models
         }
 
         public DbSet<Collision> collisions { get; set; }
+        public DbSet<CrashSeverity> crashSeverities { get; set; }
         public DbSet<City> cities { get; set; }
         public DbSet<County> counties { get; set; }
     }

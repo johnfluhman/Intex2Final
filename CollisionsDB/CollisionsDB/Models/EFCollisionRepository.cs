@@ -14,6 +14,8 @@ namespace CollisionsDB.Models
         }
 
         public IQueryable<Collision> Collisions => _context.collisions;
+
+        public IQueryable<CrashSeverity> CrashSeverities => _context.crashSeverities;
         public IQueryable<City> Cities => _context.cities;
         public IQueryable<County> Counties => _context.counties;
 
