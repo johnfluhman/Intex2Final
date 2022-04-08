@@ -87,7 +87,7 @@ namespace CollisionsDB.Infrastructure
 
             if (PageModel.CurrentPage + NUM_PAGES < PageModel.TotalPages) RenderDotDotDot(thc, tho, final);
 
-            RenderPageLink(thc, tho, final, PageModel.TotalPages);
+            if(PageModel.TotalPages > 1) RenderPageLink(thc, tho, final, PageModel.TotalPages);
 
             tho.Content.AppendHtml(final.InnerHtml);
         }
