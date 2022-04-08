@@ -19,12 +19,12 @@
 
     <!--Content Security Header -->
     <!-- the unsafe-eval and unsafe-inline are needed by several of our libraries,
-        but ASP.NET sanitizes inputs and we made sure to use trustworthy libraries
-        so we are confident this is not a security vulnerability -->
+        but ASP.NET sanitizes inputs, we treated inline scripts with caution, AND we made sure to use trustworthy libraries
+        so we are confident this is NOT a security vulnerability -->
     <meta http-equiv="Content-Security-Policy"
           content="default-src 'self';
           child-src 'none';
-          script-src 'self' 'unsafe-eval' *.fontawesome.com;
+          script-src 'self' 'unsafe-eval' 'unsafe-inline' *.fontawesome.com ;
           connect-src ka-f.fontawesome.com;
           img-src 'self';
           style-src 'self' 'unsafe-inline' fonts.googleapis.com;
