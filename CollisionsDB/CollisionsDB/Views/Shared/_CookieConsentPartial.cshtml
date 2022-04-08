@@ -8,10 +8,10 @@
 
 @if (showBanner)
 {
-<div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
-    This website uses cookies to improve the user experience. We do not share your data with any third parties. <a asp-controller="Home" asp-action="Privacy">Learn More</a>.
-    <button type="button" class="accept-policy close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
-        <span aria-hidden="true">Accept</span>
+<div id="cookieConsent" class="alert alert-dark alert-dismissible fade show cookie" role="alert">
+    This website uses cookies to improve the user experience. We do not share your data with any third parties. <a asp-controller="Home" asp-action="Privacy">Learn More</a>
+    <button type="button" class="btn-cookie btn-primary" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
+        <span aria-hidden="true"><strong>Accept Cookies</strong></span>
     </button>
 </div>
     <script>(function () {
