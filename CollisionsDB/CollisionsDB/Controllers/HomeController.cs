@@ -233,6 +233,8 @@ namespace CollisionsDB.Controllers
 
 
         // returns an image that shows how the ML model converts location into severity
+        // we screenshotted this functionality because it breaks on AWS
+        // but on local dev it dynamically generates an image to load into the app
         public IActionResult HeatMap(int width=225)
         {
             // these dimensions are roughly the shape of utah
