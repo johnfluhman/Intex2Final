@@ -23,6 +23,7 @@
     <None Remove="Views\Shared\Components\AccountCounties\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AWSSDK.SecretsManager" Version="3.7.2.26" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.22">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -89,5 +90,10 @@
     <None Include="wwwroot\cubeportfolio\img\cbp-sprite.psd" />
     <None Include="wwwroot\cubeportfolio\js\jquery.cubeportfolio.js" />
     <None Include="wwwroot\cubeportfolio\js\jquery.cubeportfolio.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Models\trained_model_hgboost.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
