@@ -18,8 +18,8 @@
     <div class="row">
         <div class="col-lg-4 mb30">
             <div class="d-flex justify-content-center">
-                <a href="/Home/HeatMap?width=400">
-                    <img src="/Home/HeatMap?width=186" class="img-fluid mb20" />
+                <a href="~/images/PredictionHeatMap_large.png">
+                    <img src="~/images/PredictionHeatMap_small.png" class="img-fluid mb20" />
                 </a>
             </div>
             <h4 class="text-uppercase">Severity Prediction Map</h4>
@@ -35,16 +35,16 @@
             </p>
         </div>
         <div class="col-lg-4 mb30">
-            <img src="~/images/loren-cutler-4_lfmkpRcZM-unsplash.jpg" class="img-fluid mb20" />
+            <img src="~/images/car-crash.jpg" class="img-fluid mb20" />
             <div>
 
             </div>
-            <h4 class="text-uppercase">Crashes This Year - 2019</h4>
+            <h4 class="text-uppercase">Crashes This Year</h4>
             <ol>
                 @for (int i = 1; i <= 5; i++)
                 {
                     <li>
-                        @ViewBag.CrashSeverities[i - 1].Description: @ViewBag.NumCrashes[i]
+                        @ViewBag.CrashSeverities[i - 1].Description: @ViewBag.NumCrashes[i].ToString("N0")
                     </li>
                 }
             </ol>

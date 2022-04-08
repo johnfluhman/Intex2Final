@@ -48,6 +48,9 @@ namespace CollisionsDB.Controllers
             }
             else
             {
+                ViewBag.Cities = repo.Cities.ToList().Distinct().OrderBy(x => x.CityName);
+                ViewBag.Counties = repo.Counties.ToList().Distinct().OrderBy(x => x.CountyName);
+                ViewBag.EditMode = false;
                 return View(c);
             }
         }
@@ -72,6 +75,9 @@ namespace CollisionsDB.Controllers
             }
             else
             {
+                ViewBag.Cities = repo.Cities.ToList().Distinct().OrderBy(x => x.CityName);
+                ViewBag.Counties = repo.Counties.ToList().Distinct().OrderBy(x => x.CountyName);
+                ViewBag.EditMode = true;
                 return View(c);
             }
 

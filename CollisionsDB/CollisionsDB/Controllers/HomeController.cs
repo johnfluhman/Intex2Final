@@ -40,26 +40,31 @@ namespace CollisionsDB.Controllers
         }
 
         [HttpGet]
-        public IActionResult Summary(string county, int pageNum = 1)
+        public IActionResult Summary(string county, int pageNum = 1, int? severity = null, string? city = null)
         {
             int pageSize = 100;
 
-            var x = new CollisionsViewModel
-            {
-                Collisions = repo.Collisions
+            var query = repo.Collisions
                     .Where(c => c.County.CountyName == county || county == null)
+                    .Where(c => c.CrashSeverityId == severity || severity == null)
+                    .Where(c => c.City.CityName == city || city == null)
                     .Include(c => c.City)
                     .Include(c => c.County)
                     .OrderByDescending(c => c.CrashId)
                     .Skip((pageNum - 1) * pageSize)
-                    .Take(pageSize),
+                    .Take(pageSize);
+
+            var x = new CollisionsViewModel
+            {
+                Collisions = query,
 
                 PageInfo = new PageInfo
                 {
-                    TotalNumCrashes =
-                        (county == null
-                            ? repo.Collisions.Count()
-                            : repo.Collisions.Where(x => x.County.CountyName == county).Count()),
+                    TotalNumCrashes = repo.Collisions
+                                        .Where(c => c.County.CountyName == county || county == null)
+                                        .Where(c => c.CrashSeverityId == severity || severity == null)
+                                        .Where(c => c.City.CityName == city || city == null)
+                                        .Count(),
                     CrashesPerPage = pageSize,
                     CurrentPage = pageNum
                 }
@@ -233,6 +238,8 @@ namespace CollisionsDB.Controllers
 
 
         // returns an image that shows how the ML model converts location into severity
+        // we screenshotted this functionality because it breaks on AWS
+        // but on local dev it dynamically generates an image to load into the app
         public IActionResult HeatMap(int width=225)
         {
             // these dimensions are roughly the shape of utah

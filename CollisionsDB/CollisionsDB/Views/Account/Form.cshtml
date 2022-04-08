@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row">
                 <div class=" col-md-8 ml-auto mr-auto">
-                    <h1 class='text-uppercase'>Create/Edit a Record</h1>
+                    <h1 class='text-uppercase'>@(ViewBag.EditMode ? "Edit" : "Report") a Collision</h1>
                 </div>
             </div>
         </div>
@@ -20,28 +20,41 @@
             <div class='col-lg-8  mr-auto ml-auto'>
                 <br /><br />
                 <div class="title-heading1 mb30">
-                    <h3>Create/Edit a Record by Filling out the Form Below</h3>
+                    <h3>@(ViewBag.EditMode ? "Edit" : "Report") a Collision by Filling out the Form Below</h3>
                 </div>
                 <div class="col-lg-7 mr-auto ml-auto calculator">
                     <form method="post">
-                        <div asp-validation-summary="All"></div>
-                        <label asp-for="CrashDatetime"><strong>Date of Collision (Ex: 01/01/2000 10:10):</strong></label><br />
-                        <input asp-for="CrashDatetime" /><br /><br />
+                        <div asp-validation-summary="All" class="text-danger"></div>
 
-                        <label asp-for="Route"><strong>Route Collision Occurred On:</strong></label><br />
-                        <input asp-for="Route" /><br /><br />
+                        <div class="form-group">
+                            <label asp-for="CrashDatetime"><strong>Date of Collision (Ex: 01/01/2000 10:10):</strong></label><br />
+                            <input class="form-control" asp-for="CrashDatetime" />
+                        </div>
 
-                        <label asp-for="Milepoint"><strong>Mile Point Collision At:</strong></label><br />
-                        <input asp-for="Milepoint" /><br /><br />
+                        <div class="form-group">
+                            <label asp-for="Route"><strong>Route Collision Occurred On:</strong></label><br />
+                            <input class="form-control" asp-for="Route" />
+                        </div>
 
-                        <label asp-for="LatUtmY"><strong>Latitude of Collision:</strong></label><br />
-                        <input asp-for="LatUtmY" /><br /><br />
+                        <div class="form-group">
+                            <label asp-for="Milepoint"><strong>Mile Point Collision At:</strong></label><br />
+                            <input class="form-control" asp-for="Milepoint" />
+                        </div>
 
-                        <label asp-for="LongUtmX"><strong>Longitude of Collision:</strong></label><br />
-                        <input asp-for="LongUtmX" /><br /><br />
+                        <div class="form-group">
+                            <label asp-for="LatUtmY"><strong>Latitude of Collision:</strong></label><br />
+                            <input class="form-control" asp-for="LatUtmY" />
+                        </div>
 
-                        <label asp-for="MainRoadName"><strong>Name of Road Where Collision Occurred:</strong></label><br />
-                        <input asp-for="MainRoadName" /><br /><br />
+                        <div class="form-group">
+                            <label asp-for="LongUtmX"><strong>Longitude of Collision:</strong></label><br />
+                            <input class="form-control" asp-for="LongUtmX" />
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="MainRoadName"><strong>Name of Road Where Collision Occurred:</strong></label><br />
+                            <input class="form-control" asp-for="MainRoadName" />
+                        </div>
 
                         <label asp-for="CityId"><strong>City Where Collision Occurred:</strong></label><br />
                         <select asp-for="CityId">
