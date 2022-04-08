@@ -16,9 +16,13 @@ namespace CollisionsDB
         public long CrashId { get; set; }
         [Required, RegularExpression(@"^\d+\/\d+\/\d{4}\s\d+\:\d+", ErrorMessage = "Please enter date in the following format: M/DD/YYYY HH:MM")]
         public string CrashDatetime { get; set; }
+        [Required]
         public int? Route { get; set; }
+        [Required]
         public double? Milepoint { get; set; }
+        [Required]
         public double? LatUtmY { get; set; }
+        [Required]
         public double? LongUtmX { get; set; }
         [Required]
         public string MainRoadName { get; set; }

@@ -18,6 +18,9 @@
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
     <!--Content Security Header -->
+    <!-- the unsafe-eval and unsafe-inline are needed by several of our libraries,
+        but ASP.NET sanitizes inputs and we made sure to use trustworthy libraries
+        so we are confident this is not a security vulnerability -->
     <meta http-equiv="Content-Security-Policy"
           content="default-src 'self';
           child-src 'none';
