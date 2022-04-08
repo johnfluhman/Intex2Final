@@ -46,12 +46,12 @@ namespace CollisionsDB
             //This will connect to MySQL
             services.AddDbContext<CollisionDBContext>(options =>
             {
-                options.UseMySql(GetSecret());
+                options.UseMySql(GetSecret("intex2/mysqlconnectionstring"));
             });
 
             services.AddDbContext<AppIdentityDBContext>(options =>
             {
-                options.UseMySql(GetSecret());
+                options.UseMySql(GetSecret("intex2/mysqlconnectionstring"));
             });
 
             services.AddDefaultIdentity<IdentityUser>(options =>
@@ -126,9 +126,8 @@ namespace CollisionsDB
         }
 
 
-        public static string GetSecret()
+        public static string GetSecret(string secretName)
         {
-            string secretName = "intex2/mysql";
             string region = "us-east-1";
             string secret = "";
 
